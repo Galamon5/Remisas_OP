@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.Timer;
 
@@ -22,7 +23,7 @@ public class Mainprogram extends Application {
     
     private Stage window;
     
-    
+    //Inicio de Sesion
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(Mainprogram.class.getResource("loginStage.fxml"));
@@ -37,7 +38,17 @@ public class Mainprogram extends Application {
         controller.setPrincipal(this);
         stage.show();
     }
-
+    public void stageRegistroUsuario() throws Exception {
+        FXMLLoader loader = new FXMLLoader(Mainprogram.class.getResource("userRegisterStage.fxml"));
+        Parent root = (Parent) loader.load();
+        Scene scene = new Scene(root);
+        window.setTitle("Registro de usuario");
+        window.setScene(scene);
+        UserRegisterController controller = loader.getController();
+        controller.setStagePrincipal(window);
+    }
+    
+    //Registro de nuevo Usuario
     /**
      * @param args the command line arguments
      */
