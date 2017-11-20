@@ -11,16 +11,20 @@ and open the template in the editor.
 #AnchorPane {
     -fx-background-color: #818FA1;
     -fx-min-width: 800px;
-    -fx-min-height: 500px;    
+    -fx-min-height: 500px;
+    -fx-padding: 50px 200px 50px 200px;
 }
 
 
 #menuPanel {
     -fx-background-color: #F0F0F0;
+    -fx-alignment: TOP_CENTER;
+
 }
 
-.label {
-    -fx-alignment: BASELINE_CENTER;
-    -fx-pref-width: 400px;
-    -fx-pref-height: 50px;
+#title {
+    -fx-font-size: 50px;
+    -fx-pref-width: 700px;
+    -fx-alignment: center;
+    -fx-X: 0px;
 }

@@ -31,6 +31,8 @@ public class Mainprogram extends Application {
         Scene scene = new Scene(root);
         window.setTitle("Inicio");
         window.setScene(scene);
+        window.setMinWidth(800);
+        window.setMinHeight(500);
         LoginController controller = loader.getController();
         controller.setPrincipal(this);
         stage.show();
