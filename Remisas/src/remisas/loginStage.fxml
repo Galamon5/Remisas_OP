@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="500.0" prefWidth="800.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.LoginController">
+   <children>
+      <Pane id="menuPanel" layoutX="246.0" layoutY="157.0" prefHeight="300.0" prefWidth="400.0" stylesheets="@estilos.css">
+         <children>
+            <Label prefHeight="71.0" prefWidth="400.0" stylesheets="@estilos.css" text="Iniciar Sesion" />
+            <Label fx:id="label" layoutY="175.0" />
+            <Button fx:id="button" layoutX="172.0" layoutY="101.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Button" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
