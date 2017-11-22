@@ -40,8 +40,8 @@
                   <Label text="Contraseña:" GridPane.rowIndex="2" />
                   <Label text="Confirmar Contraseña:" GridPane.rowIndex="3" />
                   <Label text="Codigo:" GridPane.rowIndex="4" />
-                  <Button fx:id="confirmRegistro" mnemonicParsing="false" prefHeight="80.0" prefWidth="170.0" text="Registrar" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Button fx:id="cancelRegistro" mnemonicParsing="false" prefHeight="70.0" prefWidth="170.0" text="Cancelar" GridPane.rowIndex="5" />
+                  <Button fx:id="confirmRegistro" onAction="#createNewUser" mnemonicParsing="false" prefHeight="80.0" prefWidth="170.0" text="Registrar" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button fx:id="cancelRegistro" onAction="#cancelNewUser" mnemonicParsing="false" prefHeight="70.0" prefWidth="170.0" text="Cancelar" GridPane.rowIndex="5" />
                </children>
                <VBox.margin>
                   <Insets />

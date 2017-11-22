@@ -35,6 +35,7 @@ and open the template in the editor.
     -fx-padding: 10px 30px 10px 30px;
 }
 
-.button{
+.Button{
     -fx-padding: 10px 30px 10px 30px;
+    
 }

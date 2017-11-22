@@ -30,7 +30,7 @@ public class Mainprogram extends Application {
         Parent root = (Parent) loader.load();
         window = stage;
         Scene scene = new Scene(root);
-        window.setTitle("Inicio");
+        window.setTitle("Inicio de sesion");
         window.setScene(scene);
         window.setMinWidth(800);
         window.setMinHeight(500);
@@ -45,7 +45,16 @@ public class Mainprogram extends Application {
         window.setTitle("Registro de usuario");
         window.setScene(scene);
         UserRegisterController controller = loader.getController();
-        controller.setStagePrincipal(window);
+        controller.setPrincipal(this);
+    }
+    public void stageInicio() throws Exception {
+        FXMLLoader loader = new FXMLLoader(Mainprogram.class.getResource("loginStage.fxml"));
+        Parent root = (Parent) loader.load();
+        Scene scene = new Scene(root);
+        window.setTitle("Inicio de sesion");
+        window.setScene(scene);
+        LoginController controller = loader.getController();
+        controller.setPrincipal(this);
     }
     
     //Registro de nuevo Usuario
