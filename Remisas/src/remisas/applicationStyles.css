@@ -9,8 +9,22 @@ and open the template in the editor.
 */
 
 #AnchorPane {
-    -fx-background-color: #818FA1;
+    -fx-background-color: #546272;
     -fx-min-width: 800px;
     -fx-min-height: 500px;
-    -fx-padding: 50px 50px 50px 50px;
+    -fx-padding: 20px 20px 20px 20px;
+}
+
+#Panel {
+    -fx-background-color: #818fa1;
+    -fx-alignment: TOP_CENTER;
+
+}
+
+#Tab {
+    -fx-background-color: #b1bfd2;
+}
+
+#Content {
+    -fx-background-color: #f5f5f5;
 }

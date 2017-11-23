@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -11,36 +12,89 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.MenuStageController">
     <stylesheets>
-        <URL value="@estilos.css" />
+        <URL value="@applicationStyles.css" />
     </stylesheets>
    <children>
-      <VBox id="menuPanel" alignment="TOP_CENTER" layoutX="359.0" layoutY="150.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label layoutX="708.0" layoutY="2.0" onMouseClicked="#logOut" text="Cerrar Sesion" />
+      <VBox id="Panel" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Bienvenido">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <ImageView>
+            <ImageView fitHeight="36.0" fitWidth="36.0">
                <image>
                   <Image url="@../images/group-of-users-silhouette.png" />
                </image>
             </ImageView>
-            <Button id="formButton" mnemonicParsing="false" text="Control de Clientes" />
-            <ImageView>
-               <image>
-                  <Image url="@../images/warehouse.png" />
-               </image>
-            </ImageView>
-            <Button id="formButton" mnemonicParsing="false" text="Control de Inventario" />
-            <ImageView>
-               <image>
-                  <Image url="@../images/note.png" />
-               </image>
-            </ImageView>
-            <Button id="formButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="129.0" text="Control de Pedidos" />
+            <TabPane prefHeight="443.0" prefWidth="740.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="200.0">
+              <tabs>
+                <Tab id="Tab" text="Control de clientes">
+                     <content>
+                        <VBox id="Content" alignment="TOP_RIGHT" prefHeight="386.0" prefWidth="700.0">
+                           <children>
+                              <ImageView fitHeight="35.0" fitWidth="35.0">
+                                 <image>
+                                    <Image url="@../images/user.png" />
+                                 </image>
+                              </ImageView>
+                              <TableView prefHeight="341.0" prefWidth="700.0">
+                                <columns>
+                                  <TableColumn prefWidth="47.0" text="ID" />
+                                  <TableColumn prefWidth="242.0" text="Nombre" />
+                                    <TableColumn minWidth="0.0" prefWidth="131.0" text="Tipo" />
+                                    <TableColumn prefWidth="87.0" text="Pedidos" />
+                                    <TableColumn prefWidth="108.0" text="Detalles" />
+                                    <TableColumn prefWidth="84.0" text="Borrar" />
+                                </columns>
+                              </TableView>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                </Tab>
+                <Tab id="Tab" text="Control de inventario">
+                     <content>
+                        <VBox id="Content" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="32.0">
+                                 <image>
+                                    <Image url="@../images/plus.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </ImageView>
+                              <TableView prefHeight="326.0" prefWidth="700.0">
+                                <columns>
+                                  <TableColumn prefWidth="39.0" text="ID" />
+                                  <TableColumn prefWidth="174.0" text="Producto" />
+                                    <TableColumn prefWidth="180.0" text="Marca" />
+                                    <TableColumn prefWidth="64.0" text="Precio" />
+                                    <TableColumn prefWidth="78.0" text="Cantidad" />
+                                    <TableColumn prefWidth="111.0" text="Modificar" />
+                                    <TableColumn prefWidth="53.0" text="Borrar" />
+                                </columns>
+                              </TableView>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                </Tab>
+                  <Tab id="Tab" text="Control de pedidos">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+              </tabs>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </TabPane>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </VBox>
-      <Label layoutX="708.0" layoutY="5.0" onMouseClicked="#logOut" text="Cerrar Sesion" />
    </children>
 </AnchorPane>
