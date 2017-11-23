@@ -16,11 +16,10 @@
             <TextField fx:id="textUsuario" />
             <Label text="Contraseña:" />
             <PasswordField fx:id="textContra" />
-            <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#logIn" text="Iniciar Sesion" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
+                  <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#logIn" text="Iniciar Sesion" />
                   <Button fx:id="signIn" mnemonicParsing="false" onAction="#signIn" text="Registrarse" />
-                  <Label fx:id="labelForgotPassword" onMouseClicked="#passwordRecovery" text="¿Olvidaste tu contraseña?" />
                </children>
             </HBox>
          </children>

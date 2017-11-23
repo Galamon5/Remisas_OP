@@ -14,7 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import static remisas.Popupalert.display;
+import static remisas.alertClass.*;
 
 /**
  *
@@ -39,14 +39,22 @@ public class LoginController implements Initializable {
     
     //Metodos FXML
     @FXML
-    private void logIn(){
-        if("".equals(textUsuario.getText()))
-            display("Error","Introduce tu usuario");
-        else if("".equals(textContra.getText()))
-            display("Error","Inserte contraseña");
-        else
-        System.out.println("Peticion de inicio de sesion:"+"\n"+"Usuario: "
+    private void logIn() throws Exception{
+        textContra.setStyle("-fx-border-color: none");
+        textUsuario.setStyle("-fx-border-color: none");
+        if("".equals(textUsuario.getText())){
+            newError("Error al leer el usuario","Por favor introdusca su usuario");
+            textUsuario.setStyle("-fx-border-color: #d32f2f");
+        }
+        else if("".equals(textContra.getText())){
+            newError("Error al leer la contraseña","Inserte su contraseña");
+            textContra.setStyle("-fx-border-color: #d32f2f");
+        }
+        else{
+            System.out.println("Peticion de inicio de sesion:"+"\n"+"Usuario: "
                 +textUsuario.getText()+"  Password: "+textContra.getText());
+            mainProgram.stageMenu();
+        }
         textUsuario.setText("");
         textContra.setText("");
     }

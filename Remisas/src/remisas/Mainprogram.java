@@ -56,6 +56,15 @@ public class Mainprogram extends Application {
         LoginController controller = loader.getController();
         controller.setPrincipal(this);
     }
+    public void stageMenu() throws Exception {
+        FXMLLoader loader = new FXMLLoader(Mainprogram.class.getResource("menuStage.fxml"));
+        Parent root = (Parent) loader.load();
+        Scene scene = new Scene(root);
+        window.setTitle("Menu");
+        window.setScene(scene);
+        MenuStageController controller = loader.getController();
+        controller.setPrincipal(this);
+    }
     
     //Registro de nuevo Usuario
     /**
