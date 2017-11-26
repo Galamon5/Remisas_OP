@@ -6,6 +6,7 @@
 package remisas;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,6 +72,19 @@ public class LoginController implements Initializable {
         textContra.setText("");
     }
     
+    @FXML
+    private void exit(){
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Salir");
+        a.setHeaderText("Estas apunto de salir de la aplicación");
+        a.setContentText("Estas seguro?");
+        
+        Optional<ButtonType> result = a.showAndWait();
+        if(result.get()==ButtonType.OK){
+            System.out.println("Saliendo de la aplicacion");
+            System.exit(0);
+        }
+    }
     
     //Metodos locales
     public void setPrincipal(Mainprogram stage){

@@ -10,9 +10,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 
 /**
  * FXML Controller class
@@ -23,6 +22,35 @@ public class MenuStageController implements Initializable {
     
     //Variables locales
     private Mainprogram mainProgram;
+    
+    //variables FXML control de clientes
+    @FXML TableView tableCliente;
+    @FXML TableColumn columnIdCliente;
+    @FXML TableColumn columnNombre;
+    @FXML TableColumn columnTipoCliente;
+    @FXML TableColumn columnPedidos;
+    @FXML TableColumn columnDetallesCliente;
+    @FXML TableColumn columnBorrarCliente;
+    
+    //varibale FXML control de inventario;
+    @FXML TableView tableInventario;
+    @FXML TableColumn columnIdInventario;
+    @FXML TableColumn columnProducto;
+    @FXML TableColumn columnMarca;
+    @FXML TableColumn columnPrecio;
+    @FXML TableColumn columnCantidad;
+    @FXML TableColumn columnModificar;
+    @FXML TableColumn columnBorrarInventario;
+    
+    //variable FXML control de pedidos
+    @FXML TableView tablePedido;
+    @FXML TableColumn columnIdPedido;
+    @FXML TableColumn columnTipoPedido;
+    @FXML TableColumn columnCliente;
+    @FXML TableColumn columnFecha;
+    @FXML TableColumn columnMonto;
+    @FXML TableColumn columnDetallesPedido;
+    @FXML TableColumn columnBorrarPedido;
     
     //Metodos FXML
     @FXML
