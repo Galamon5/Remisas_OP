@@ -8,10 +8,14 @@ package remisas;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
+import modelo.*;
 
 /**
  * FXML Controller class
@@ -22,15 +26,17 @@ public class MenuStageController implements Initializable {
     
     //Variables locales
     private Mainprogram mainProgram;
+    private ObservableList<Clientes> clientesList;
+    private Conector conexion;
     
     //variables FXML control de clientes
-    @FXML TableView tableCliente;
-    @FXML TableColumn columnIdCliente;
-    @FXML TableColumn columnNombre;
-    @FXML TableColumn columnTipoCliente;
-    @FXML TableColumn columnPedidos;
-    @FXML TableColumn columnDetallesCliente;
-    @FXML TableColumn columnBorrarCliente;
+    @FXML TableView<Clientes> tableCliente;
+    @FXML TableColumn<Clientes,Integer> columnIdCliente;
+    @FXML TableColumn<Clientes,String> columnNombre;
+    @FXML TableColumn<Clientes,Integer> columnTipoCliente;
+    @FXML TableColumn<Clientes,Integer> columnPedidos;
+    @FXML TableColumn<Clientes,Button> columnDetallesCliente;
+    @FXML TableColumn<Clientes,Button> columnBorrarCliente;
     
     //varibale FXML control de inventario;
     @FXML TableView tableInventario;
@@ -77,7 +83,21 @@ public class MenuStageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        conexion = new Conector();
+        conexion.startConnection();
+        clientesList =  FXCollections.observableArrayList();
+        Clientes.llenarTabla(conexion.getConnection(), clientesList);
+        tableCliente.setItems(clientesList);
+        /*@FXML TableColumn columnIdCliente;
+    @FXML TableColumn columnNombre;
+    @FXML TableColumn columnTipoCliente;
+    @FXML TableColumn columnPedidos;
+    @FXML TableColumn columnDetallesCliente;
+    @FXML TableColumn columnBorrarCliente;*/
+        columnIdCliente.setCellValueFactory(new PropertyValueFactory<Clientes,Integer>("id"));
+        columnNombre.setCellValueFactory(new PropertyValueFactory<Clientes,String>("nombre"));
+        columnTipoCliente.setCellValueFactory(new PropertyValueFactory<Clientes,Integer>("tipo"));
+        columnPedidos.setCellValueFactory(new PropertyValueFactory<Clientes,Integer>("pedidos"));
     }    
     
 }
