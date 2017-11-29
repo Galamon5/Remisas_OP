@@ -121,7 +121,7 @@ public class Clientes {
     public static void llenarTabla(Connection connection,ObservableList<Clientes> list){
         try {
             Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("select id,nombre,direccion,correo,tipo,pedidos,id_telefono from clientes");
+            ResultSet result = statement.executeQuery("select id,nombre,direccion,correo,tipo,pedidos,id_telefono from ");
             while(result.next()){
                 list.add(new Clientes(result.getInt("id"),
                                     result.getString("nombre"),

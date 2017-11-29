@@ -4,14 +4,24 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
+    Created on : 27/11/2017, 05:56:14 PM
+    Author     : bigbo
+*/
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
     Created on : 22-nov-2017, 20:46:23
     Author     : juanmanuel
 */
 
 #AnchorPane {
     -fx-background-color: #546272;
-    -fx-min-width: 800px;
-    -fx-min-height: 600px;
+    -fx-min-width: 900px;
+    -fx-min-height: 550px;
     -fx-padding: 20px 20px 20px 20px;
 }
 
@@ -19,10 +29,6 @@ and open the template in the editor.
     -fx-background-color: #818fa1;
     -fx-alignment: TOP_CENTER;
 
-}
-
-#Tab {
-    -fx-background-color: #b1bfd2;
 }
 
 #Content {
@@ -33,9 +39,10 @@ and open the template in the editor.
     -fx-font-size: 50px;
     -fx-pref-width: 700px;
     -fx-alignment: center;
-    -fx-X: 0px;
 }
 
 #gridTitle {
     -fx-font-size: 20px;
+    -fx-padding: 0px 0px 0px 10px;
 }
+

@@ -13,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import modelo.Conector;
+import modelo.Usuario;
 import static remisas.alertClass.*;
 
 /**
@@ -23,8 +25,9 @@ import static remisas.alertClass.*;
 public class UserRegisterController implements Initializable {
     
     //local variables
-    Mainprogram mainProgram;
-    Stage mainStage;
+    private Mainprogram mainProgram;
+    private Stage mainStage;
+    private Conector conexion;
     
     //FXML variables
     @FXML
@@ -35,6 +38,7 @@ public class UserRegisterController implements Initializable {
     //Metodos FXML
     @FXML
     private void createNewUser() throws Exception{
+        
         textRegistUsuario.setStyle("-fx-border-color: none");
         textRegistNombre.setStyle("-fx-border-color: none");
         textConfirmCode.setStyle("-fx-border-color: none");
@@ -66,13 +70,27 @@ public class UserRegisterController implements Initializable {
             textConfirmPass.setStyle("-fx-border-color: #b32f2f");
         }
         else{
-            System.out.println("Generando Usuario \n"+"Nombre: "+textRegistNombre.getText()
-                +" Usuario: "+textRegistUsuario.getText()+" Password: "+textConfirmPass.getText()
-                +" Code: "+textConfirmCode.getText());
-            System.out.println("regresando a inicio");
-            newWarning("Nuevo Usuario Registrado","El usuario: "+textRegistUsuario.getText()
-                +" se registro correctamente");
-            mainProgram.stageInicio();
+            Alert a;
+            Usuario x = new Usuario(textRegistNombre.getText(),textRegistPass.getText(),textRegistUsuario.getText());
+            conexion.startConnection();
+            int res = x.addUsuario(conexion.getConnection());
+            conexion.closeConnection();
+            if(res == 1){
+                a = new Alert(Alert.AlertType.INFORMATION);
+                a.setTitle("Usuario registrado");
+                a.setHeaderText(null);
+                a.setContentText("El cliente fue registrado satisfactoriamente");
+                a.showAndWait();
+                mainProgram.stageInicio();
+            }
+            else {
+                a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error al generar cliente");
+                a.setHeaderText(null);
+                a.setContentText("Ocurrio un error al generar el cliente");
+                a.showAndWait();
+            }
+            
         }
     }
     @FXML
@@ -104,7 +122,7 @@ public class UserRegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        conexion = new Conector();
     }    
     
 }

@@ -11,10 +11,14 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import modelo.*;
 
 /**
@@ -30,13 +34,16 @@ public class MenuStageController implements Initializable {
     private Conector conexion;
     
     //variables FXML control de clientes
-    @FXML TableView<Clientes> tableCliente;
-    @FXML TableColumn<Clientes,Integer> columnIdCliente;
-    @FXML TableColumn<Clientes,String> columnNombre;
-    @FXML TableColumn<Clientes,Integer> columnTipoCliente;
-    @FXML TableColumn<Clientes,Integer> columnPedidos;
-    @FXML TableColumn<Clientes,Button> columnDetallesCliente;
-    @FXML TableColumn<Clientes,Button> columnBorrarCliente;
+    @FXML TableView<ClienteFisico> tableClienteF;
+    @FXML TableColumn<ClienteFisico,Integer> columnIdClienteF;
+    @FXML TableColumn<ClienteFisico,String> columnNombreF;
+    @FXML TableColumn<ClienteFisico,Integer> columnPedidosF;
+    @FXML TableColumn<ClienteFisico,String> columnCorreoF;
+    @FXML TableView<ClienteMoral> tableClienteM;
+    @FXML TableColumn<ClienteMoral,Integer> columnIdClienteM;
+    @FXML TableColumn<ClienteMoral,String> columnNombreM;
+    @FXML TableColumn<ClienteMoral,Integer> columnPedidosM;
+    @FXML TableColumn<ClienteMoral,String> columnCorreoM;
     
     //varibale FXML control de inventario;
     @FXML TableView tableInventario;
@@ -72,6 +79,21 @@ public class MenuStageController implements Initializable {
             mainProgram.stageInicio();
         }
     }
+    @FXML
+    private void showDetallesCliente() throws Exception{
+        /*Clientes x = tableClienteF.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("detallesClienteStage.fxml"));
+        loader.load();
+        DetallesClienteController controller = loader.getController();
+        controller.setCliente(x);
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setTitle("Informacion Cliente");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.showAndWait();*/
+    }
 
     //Metodos locales
     public void setPrincipal(Mainprogram stage){
@@ -84,20 +106,15 @@ public class MenuStageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         conexion = new Conector();
-        conexion.startConnection();
+        /*conexion.startConnection();
         clientesList =  FXCollections.observableArrayList();
         Clientes.llenarTabla(conexion.getConnection(), clientesList);
         tableCliente.setItems(clientesList);
-        /*@FXML TableColumn columnIdCliente;
-    @FXML TableColumn columnNombre;
-    @FXML TableColumn columnTipoCliente;
-    @FXML TableColumn columnPedidos;
-    @FXML TableColumn columnDetallesCliente;
-    @FXML TableColumn columnBorrarCliente;*/
         columnIdCliente.setCellValueFactory(new PropertyValueFactory<Clientes,Integer>("id"));
         columnNombre.setCellValueFactory(new PropertyValueFactory<Clientes,String>("nombre"));
         columnTipoCliente.setCellValueFactory(new PropertyValueFactory<Clientes,Integer>("tipo"));
         columnPedidos.setCellValueFactory(new PropertyValueFactory<Clientes,Integer>("pedidos"));
+        columnCorreo.setCellValueFactory(new PropertyValueFactory<Clientes,String>("correo"));*/
     }    
     
 }

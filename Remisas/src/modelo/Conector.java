@@ -18,7 +18,7 @@ import javafx.scene.control.Alert;
  */
 public class Conector {
     private Connection connection;
-    private String url = "jdbc:mysql://localhost/pruebajava";
+    private String url = "jdbc:mysql://localhost/remisas";
     private String User = "root";
     private String password = "";
 

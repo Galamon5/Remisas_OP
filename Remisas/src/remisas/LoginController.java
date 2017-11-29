@@ -6,6 +6,7 @@
 package remisas;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import modelo.Conector;
+import modelo.Usuario;
 import static remisas.alertClass.*;
 
 /**
@@ -37,6 +40,7 @@ public class LoginController implements Initializable {
     //variables locales
     private Stage mainStage;
     private Mainprogram mainProgram;
+    private Conector conexion;
     
     //Metodos FXML
     @FXML
@@ -52,9 +56,25 @@ public class LoginController implements Initializable {
             textContra.setStyle("-fx-border-color: #d32f2f");
         }
         else{
-            System.out.println("Peticion de inicio de sesion:"+"\n"+"Usuario: "
-                +textUsuario.getText()+"  Password: "+textContra.getText());
-            mainProgram.stageMenu();
+            boolean res = false;
+            conexion.startConnection();
+            ArrayList<Usuario> usuarios = Usuario.getUsuarios(conexion.getConnection());
+            for(int i=0;i<usuarios.size();i++){
+                if(textUsuario.getText().equals(usuarios.get(i).getUsuario())
+                        && textContra.getText().equals(usuarios.get(i).getPassword())){
+                    res = true;
+                    break;
+                }
+            }
+            if(res)
+                mainProgram.stageMenu();
+            else{
+                Alert a = new Alert(Alert.AlertType.WARNING);
+                a.setTitle("Usuario o contraseña incorrectos");
+                a.setHeaderText(null);
+                a.setContentText("Usuario o contraseña incorrectos, porfavor introducelos nuevamente");
+                a.showAndWait();
+            }
         }
         textUsuario.setText("");
         textContra.setText("");
@@ -97,7 +117,8 @@ public class LoginController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        conexion = new Conector();
+        
     }    
     
 }

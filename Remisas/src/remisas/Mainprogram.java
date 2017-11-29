@@ -7,6 +7,7 @@ package remisas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -16,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.Timer;
+import modelo.Clientes;
 
 /**
  *
@@ -24,6 +26,7 @@ import javax.swing.Timer;
 public class Mainprogram extends Application {
     
     private Stage window;
+    private Clientes cliente;
     
     //Inicio de Sesion
     @Override
