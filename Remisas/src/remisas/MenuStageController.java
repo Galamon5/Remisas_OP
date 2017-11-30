@@ -30,7 +30,8 @@ public class MenuStageController implements Initializable {
     
     //Variables locales
     private Mainprogram mainProgram;
-    private ObservableList<Clientes> clientesList;
+    private ObservableList<ClienteFisico> clientesFisicoList;
+    private ObservableList<ClienteMoral> clientesMoralList;
     private Conector conexion;
     
     //variables FXML control de clientes
@@ -39,11 +40,13 @@ public class MenuStageController implements Initializable {
     @FXML TableColumn<ClienteFisico,String> columnNombreF;
     @FXML TableColumn<ClienteFisico,Integer> columnPedidosF;
     @FXML TableColumn<ClienteFisico,String> columnCorreoF;
+    @FXML TableColumn<ClienteFisico,Integer> columnRemisasF;
     @FXML TableView<ClienteMoral> tableClienteM;
     @FXML TableColumn<ClienteMoral,Integer> columnIdClienteM;
     @FXML TableColumn<ClienteMoral,String> columnNombreM;
     @FXML TableColumn<ClienteMoral,Integer> columnPedidosM;
     @FXML TableColumn<ClienteMoral,String> columnCorreoM;
+    @FXML TableColumn<ClienteFisico,Integer> columnRemisasM;
     
     //varibale FXML control de inventario;
     @FXML TableView tableInventario;
@@ -106,15 +109,20 @@ public class MenuStageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         conexion = new Conector();
-        /*conexion.startConnection();
-        clientesList =  FXCollections.observableArrayList();
-        Clientes.llenarTabla(conexion.getConnection(), clientesList);
-        tableCliente.setItems(clientesList);
-        columnIdCliente.setCellValueFactory(new PropertyValueFactory<Clientes,Integer>("id"));
-        columnNombre.setCellValueFactory(new PropertyValueFactory<Clientes,String>("nombre"));
-        columnTipoCliente.setCellValueFactory(new PropertyValueFactory<Clientes,Integer>("tipo"));
-        columnPedidos.setCellValueFactory(new PropertyValueFactory<Clientes,Integer>("pedidos"));
-        columnCorreo.setCellValueFactory(new PropertyValueFactory<Clientes,String>("correo"));*/
+        //TableView cliente fisico
+        conexion.startConnection();
+        clientesFisicoList =  FXCollections.observableArrayList();
+        ClienteFisico.llenarTabla(conexion.getConnection(), clientesFisicoList);
+        tableClienteF.setItems(clientesFisicoList);
+        columnIdClienteF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("noCliente"));
+        columnNombreF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,String>("nombre"));
+        columnRemisasF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("remisas"));
+        columnPedidosF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("pedidos"));
+        columnCorreoF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,String>("correo"));
+        conexion.closeConnection();
+        
+        //TableView Cliente moral
+        
     }    
     
 }
