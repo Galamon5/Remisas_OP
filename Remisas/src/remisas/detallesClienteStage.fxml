@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="900.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.DetallesClienteController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="900.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.DetallesClienteController">
     <stylesheets>
         <URL value="@estiloDetalles.css" />
     </stylesheets>
@@ -22,10 +23,10 @@
       <VBox id="Panel" layoutX="338.0" layoutY="143.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label id="title" text="Informacion del Cliente" />
-            <VBox id="Content" prefHeight="486.0" prefWidth="820.0">
+            <VBox id="Content" prefHeight="397.0" prefWidth="820.0">
                <children>
                   <Label id="gridTitle" text="Informacion General" />
-                  <GridPane id="form" hgap="10.0" prefHeight="172.0" prefWidth="800.0" vgap="10.0">
+                  <GridPane id="form" hgap="10.0" prefHeight="173.0" prefWidth="800.0" vgap="10.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="298.0" />
@@ -40,9 +41,11 @@
                         <Label text="Nombre:" />
                         <TextField fx:id="nombre" editable="false" GridPane.columnIndex="1" />
                         <TextField fx:id="direccionLocal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="correo" editable="false" prefHeight="25.0" prefWidth="297.0" GridPane.columnIndex="3" />
                         <Label text="Direccion (Local):" GridPane.rowIndex="1" />
-                        <Label text="Correo:" GridPane.columnIndex="2" />
+                        <Label text="Correo:" GridPane.columnIndex="2">
+                           <graphic>
+                              <TextField fx:id="correo" editable="false" prefHeight="25.0" prefWidth="297.0" />
+                           </graphic></Label>
                         <Label text="Telefonos:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <TableView fx:id="tableTelefonos" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                           <columns>
@@ -119,7 +122,19 @@
                         </GridPane>
                      </children>
                   </HBox>
+                  <Separator layoutX="10.0" layoutY="218.0" prefWidth="200.0" />
+                  <VBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Button id="modificarCliente" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Modificar" textAlignment="CENTER" />
+                     </children>
+                  </VBox>
                </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </VBox>
          </children>
          <padding>
