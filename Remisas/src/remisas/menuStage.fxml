@@ -46,12 +46,13 @@
                                     <Insets left="60.0" />
                                  </VBox.margin>
                               </Label>
-                              <TableView fx:id="tableCliente">
+                              <TableView fx:id="tableClienteF">
                                 <columns>
-                                  <TableColumn fx:id="columnIdCliente" prefWidth="47.0" resizable="false" text="ID" />
-                                  <TableColumn fx:id="columnNombre" prefWidth="191.0" resizable="false" text="Nombre" />
-                                    <TableColumn fx:id="columnPedidos" prefWidth="104.0" resizable="false" text="Pedidos" />
-                                    <TableColumn fx:id="columnCorreo" prefWidth="257.0" resizable="false" text="Correo" />
+                                  <TableColumn fx:id="columnIdClienteF" prefWidth="49.0" resizable="false" text="ID" />
+                                  <TableColumn fx:id="columnNombreF" prefWidth="198.0" resizable="false" text="Nombre" />
+                                    <TableColumn fx:id="columnCorreoF" prefWidth="231.0" resizable="false" text="Correo" />
+                                    <TableColumn fx:id="columnPedidosF" prefWidth="60.0" resizable="false" text="Pedidos" />
+                                    <TableColumn fx:id="columnRemisasF" prefWidth="61.0" text="Remisas" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets left="60.0" right="60.0" />
@@ -62,12 +63,12 @@
                                     <Insets left="60.0" />
                                  </VBox.margin>
                               </Label>
-                              <TableView>
+                              <TableView fx:id="tableClienteM">
                                 <columns>
-                                  <TableColumn prefWidth="45.0" text="ID" />
-                                  <TableColumn prefWidth="188.0" text="Nombre" />
-                                    <TableColumn prefWidth="109.0" text="Pedidos" />
-                                    <TableColumn prefWidth="257.0" resizable="false" text="Correo" />
+                                  <TableColumn fx:id="columnIdClienteM" prefWidth="45.0" text="ID" />
+                                  <TableColumn fx:id="columnNombreM" prefWidth="188.0" text="Nombre" />
+                                    <TableColumn fx:id="columnPedidosM" prefWidth="109.0" text="Pedidos" />
+                                    <TableColumn fx:id="columnCorreoM" prefWidth="257.0" resizable="false" text="Correo" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets left="60.0" right="60.0" />
