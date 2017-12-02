@@ -23,8 +23,9 @@ public class Remisa {
     private IntegerProperty idPedido,fk_cliente;
     private  Date fechaCreacion, fechaRegistro,fechaLimite;
     private DoubleProperty montoTotal,monto;
+    private StringProperty nombreComprador,puesto;
     
-     private Remisa(int idPedido,int fk_cliente, Date fechaCreacion,Date fechaRegistro, Date fechaLimite, Double montoTotal, Double monto){
+     private Remisa(int idPedido,int fk_cliente, Date fechaCreacion,Date fechaRegistro, Date fechaLimite, Double montoTotal, Double monto,String nombreComprador,String puesto){
         this.idPedido = new SimpleIntegerProperty(idPedido);
         this.fk_cliente = new SimpleIntegerProperty(fk_cliente);
         this.fechaCreacion = fechaCreacion;
@@ -32,6 +33,8 @@ public class Remisa {
         this.fechaLimite= fechaLimite;
         this.monto=new SimpleDoubleProperty(monto);
         this.montoTotal=new SimpleDoubleProperty(montoTotal);
+         this.nombreComprador=new SimpleStringProperty(nombreComprador);
+        this.puesto=new SimpleStringProperty(puesto);
         
         
     }
@@ -40,8 +43,30 @@ public class Remisa {
         this.fk_cliente = new SimpleIntegerProperty(remisa.getFk_cliente());
         this.monto=new SimpleDoubleProperty(remisa.getMonto());
         this.montoTotal=new SimpleDoubleProperty(remisa.getMontoTotal());
+        this.nombreComprador=new SimpleStringProperty(remisa.getNombreComprador());
+        this.puesto=new SimpleStringProperty(remisa.getPuesto());
     }
     
+    public String getNombreComprador(){
+        return nombreComprador.get();
+    }
+    
+    public void setNombreComprador(String nombreComprador){
+        this.nombreComprador = new SimpleStringProperty(nombreComprador); 
+    }
+    public Property nombreCompradorProperty(){
+        return nombreComprador;
+    }
+     public String getPuesto(){
+        return puesto.get();
+    }
+    
+    public void setPuesto(String puesto){
+        this.puesto = new SimpleStringProperty(puesto); 
+    }
+    public Property puestoProperty(){
+        return puesto;
+    }
      public int getIdPedido(){
         return idPedido.get();
     }
