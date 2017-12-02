@@ -22,7 +22,7 @@ import javafx.scene.control.Alert;
  */
 public class ClienteMoral {
     private IntegerProperty noCliente;
-    private StringProperty nombre,direccionLocal,correo,nombreComprador,puesto,tipoCliente;
+    private StringProperty nombre,direccionLocal,correo,tipoCliente;
     private int pedidos=0,remisas=0,rPagadas=0;
     
     public ClienteMoral(int noCliente,String nombre,String direccionLocal,String correo,
@@ -31,8 +31,6 @@ public class ClienteMoral {
         this.nombre = new SimpleStringProperty(nombre);
         this.direccionLocal = new SimpleStringProperty(direccionLocal);
         this.correo = new SimpleStringProperty(correo);
-        this.nombreComprador = new SimpleStringProperty(nombreComprador);
-        this.puesto = new SimpleStringProperty(puesto);
         this.tipoCliente = new SimpleStringProperty(tipoCliente);
     }
     
@@ -40,9 +38,7 @@ public class ClienteMoral {
         this.noCliente = new SimpleIntegerProperty(cliente.getNoCliente());
         this.nombre = new SimpleStringProperty(cliente.getNombre());
         this.direccionLocal = new SimpleStringProperty(cliente.getDireccionLocal());
-        this.correo = new SimpleStringProperty(cliente.getCorreo());
-        this.nombreComprador = new SimpleStringProperty(cliente.getNombreComprador());
-        this.puesto = new SimpleStringProperty(cliente.getPuesto());
+        this.correo = new SimpleStringProperty(cliente.getCorreo());   
         this.tipoCliente = new SimpleStringProperty(cliente.getTipoCliente());
         this.pedidos = pedidos;
         this.remisas = remisas;
@@ -57,31 +53,6 @@ public class ClienteMoral {
         this.rPagadas = rPagadas;
     }
     
-    
-    
-    public String getNombreComprador(){
-        return nombre.get();
-    }
-    
-    public void setNombreComprador(String nombreComprador){
-        this.nombreComprador = new SimpleStringProperty(nombreComprador);
-    }
-    
-    public Property nombreCompradorProperty(){
-        return nombreComprador;
-    }
-    
-    public String getPuesto(){
-        return puesto.get();
-    }
-    
-    public void setPuesto(String puesto){
-        this.puesto = new SimpleStringProperty(puesto);
-    }
-    
-    public Property puestoProperty(){
-        return puesto;
-    }
     
     public int getPedidos() {
         return pedidos;
