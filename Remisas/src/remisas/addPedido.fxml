@@ -26,7 +26,7 @@
    <children>
       <VBox id="Panel" layoutX="60.0" layoutY="60.0" prefHeight="516.0" prefWidth="820.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label id="title" text="Modificar/Actualizar Pedido" />
+            <Label id="title" text="Agregar Nuevo Pedido" />
             <VBox id="Content" prefHeight="397.0" prefWidth="820.0">
                <children>
                   <Label id="gridTitle" text="Información del Pedido" />
@@ -80,11 +80,11 @@
                         <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <DatePicker layoutX="149.0" layoutY="223.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label layoutX="21.0" layoutY="227.0" prefHeight="17.0" prefWidth="107.0" text="Fecha de Limite:" GridPane.rowIndex="7" />
-                        <Label layoutX="339.0" layoutY="227.0" prefHeight="17.0" prefWidth="107.0" text="Monto pagado:" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <Label layoutX="339.0" layoutY="227.0" prefHeight="17.0" prefWidth="107.0" text="Monto pagado:  $" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                         <DatePicker layoutX="149.0" layoutY="223.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <TextField GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                        <Label layoutX="334.0" layoutY="195.0" prefHeight="17.0" prefWidth="107.0" text="Monto restante:" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                        <Label layoutX="334.0" layoutY="235.0" prefHeight="17.0" prefWidth="107.0" text="Monto a pagar:" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <Label layoutX="334.0" layoutY="195.0" prefHeight="17.0" prefWidth="107.0" text="Monto restante:  $" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                        <Label layoutX="334.0" layoutY="235.0" prefHeight="17.0" prefWidth="107.0" text="Monto a pagar:  $" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                         <TextField layoutX="478.0" layoutY="231.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                         <TextField layoutX="478.0" layoutY="231.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
                         <ComboBox prefWidth="150.0" promptText="Producto" GridPane.columnIndex="3" />
@@ -99,16 +99,14 @@
                         <GridPane>
                           <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button id="addNewClient" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Actualizar" textAlignment="CENTER" GridPane.valignment="CENTER" />
-                              <Button cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancelar" textAlignment="CENTER" GridPane.columnIndex="2" />
-                              <Button mnemonicParsing="false" text="Remitir" GridPane.columnIndex="1" />
+                              <Button id="addNewClient" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Agregar" textAlignment="CENTER" GridPane.valignment="CENTER" />
+                              <Button cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancelar" textAlignment="CENTER" GridPane.columnIndex="1" />
                            </children>
                            <VBox.margin>
                               <Insets />
