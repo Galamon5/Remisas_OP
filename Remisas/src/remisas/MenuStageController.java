@@ -131,6 +131,49 @@ public class MenuStageController implements Initializable {
         controller.setPrincipal(mainProgram);
         stage.showAndWait();
     }
+    @FXML
+    private void borrarCliente(){
+        int res = 0;
+        System.out.println("Entro");
+        conexion.startConnection();
+        if(tableClienteF.isFocusTraversable()){
+            System.out.println("Es Fisico");
+            ClienteFisico x = tableClienteF.getSelectionModel().getSelectedItem();
+            res = x.borrarCliente(conexion.getConnection());
+            if(res == 1){
+                this.clientesFisicoList.remove(tableClienteF.getSelectionModel().getSelectedIndex());
+            }
+        }
+        else if(tableClienteM.isFocusTraversable()){
+            System.out.println("Es moral");
+            ClienteMoral x = tableClienteM.getSelectionModel().getSelectedItem();
+            res = x.borrarCliente(conexion.getConnection());
+            if(res == 1){
+                this.clientesMoralList.remove(tableClienteM.getSelectionModel().getSelectedIndex());
+            }
+        }
+        else{
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText(null);
+            a.setContentText("Selecciona un cliente");
+        }
+        if(res == 1){
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setTitle("Se borro cliente");
+            a.setHeaderText(null);
+            a.setContentText("El cliente se borro satisfactoriamente");
+            a.showAndWait();
+        }
+        else{
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Ocurrio un error al borrar el cliente");
+            a.setHeaderText(null);
+            a.setContentText("Ocurrio un error al borrar el cliente");
+            a.showAndWait();
+        }
+        conexion.closeConnection();
+    }
 
     //Metodos locales
     public void setPrincipal(Mainprogram stage){

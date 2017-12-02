@@ -201,4 +201,19 @@ public class ClienteFisico {
             return 0;
         }
     }
+    
+    public int borrarCliente(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement("delete from ClienteFisico where noCliente = ?");
+            instruction.setInt(1, noCliente.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Telefonos.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al borrar cliente");
+            a.setHeaderText("Error al intentar borrar cliente");
+            a.setContentText(ex.getMessage());
+            return 0;
+        }
+    }
 }
