@@ -21,7 +21,7 @@ public class ClienteFisico {
     
     private IntegerProperty noCliente;
     private StringProperty nombre,direccionLocal,correo,direccionPersonal,tipoCliente;
-    private int pedidos=0,remisas=0;
+    private int pedidos=0,remisas=0,rPagadas=0;
     
     private ClienteFisico(int noCliente,String nombre,String direccionLocal, String correo,String direccionPersonal, String tipoCliente){
         this.noCliente = new SimpleIntegerProperty(noCliente);
@@ -32,7 +32,7 @@ public class ClienteFisico {
         this.tipoCliente = new SimpleStringProperty(tipoCliente);
     }
     
-    private ClienteFisico(ClienteFisico cliente,int pedidos,int remisas){
+    private ClienteFisico(ClienteFisico cliente,int pedidos,int remisas,int rPagadas){
         this.noCliente = new SimpleIntegerProperty(cliente.getNoCliente());
         this.nombre = new SimpleStringProperty(cliente.getNombre());
         this.direccionLocal = new SimpleStringProperty(cliente.getDireccionLocal());
@@ -41,6 +41,7 @@ public class ClienteFisico {
         this.tipoCliente = new SimpleStringProperty(cliente.getTipoCliente());
         this.pedidos = pedidos;
         this.remisas = remisas;
+        this.rPagadas = rPagadas;
     }
 
     public int getPedidos() {
@@ -58,8 +59,14 @@ public class ClienteFisico {
     public void setRemisas(int remisas) {
         this.remisas = remisas;
     }
-    
-    
+
+    public int getRPagadas() {
+        return rPagadas;
+    }
+
+    public void setRPagadas(int rPagadas) {
+        this.rPagadas = rPagadas;
+    }
     
     public int getNoCliente(){
         return noCliente.get();
@@ -134,7 +141,7 @@ public class ClienteFisico {
     }
    
     public static void llenarTabla(Connection connection,ObservableList<ClienteFisico> list){
-        int pedido=0,remisa=0;
+        int pedido=0,remisa=0,pagada=0;
         ArrayList<ClienteFisico> clientes = new ArrayList();
         ArrayList idClientesP = new ArrayList();
         try{
@@ -154,9 +161,12 @@ public class ClienteFisico {
                 result = statement.executeQuery("select count(idPedido) as numremisa from remisa where fk_cliente="+idClientesP.get(i));
                 while(result.next())
                     remisa = result.getInt("numremisa");
+                result = statement.executeQuery("select count(idPedido) as numPagadas from remisapagada where fk_cliente="+idClientesP.get(i));
+                while(result.next())
+                    pagada = result.getInt("numPagadas");
                 for(int j=0;j<clientes.size();j++){
                     if(clientes.get(i).getNoCliente()==(int)idClientesP.get(i)){
-                        list.add(new ClienteFisico(clientes.get(i),pedido,remisa));
+                        list.add(new ClienteFisico(clientes.get(i),pedido,remisa,pagada));
                         break;
                     }
                 }

@@ -41,12 +41,14 @@ public class MenuStageController implements Initializable {
     @FXML TableColumn<ClienteFisico,Integer> columnPedidosF;
     @FXML TableColumn<ClienteFisico,String> columnCorreoF;
     @FXML TableColumn<ClienteFisico,Integer> columnRemisasF;
+    @FXML TableColumn<ClienteFisico,Integer> columnPagadasF;
     @FXML TableView<ClienteMoral> tableClienteM;
     @FXML TableColumn<ClienteMoral,Integer> columnIdClienteM;
     @FXML TableColumn<ClienteMoral,String> columnNombreM;
     @FXML TableColumn<ClienteMoral,Integer> columnPedidosM;
     @FXML TableColumn<ClienteMoral,String> columnCorreoM;
-    @FXML TableColumn<ClienteFisico,Integer> columnRemisasM;
+    @FXML TableColumn<ClienteMoral,Integer> columnRemisasM;
+    @FXML TableColumn<ClienteMoral,Integer> columnPagadasM;
     
     //varibale FXML control de inventario;
     @FXML TableView tableInventario;
@@ -82,20 +84,50 @@ public class MenuStageController implements Initializable {
             mainProgram.stageInicio();
         }
     }
+    
+    @FXML
+    private void unSelectMoral() {
+        tableClienteM.setFocusTraversable(false);
+        tableClienteF.setFocusTraversable(true);
+    }
+    @FXML
+    private void unSelectFisico(){
+        tableClienteF.setFocusTraversable(false);
+        tableClienteM.setFocusTraversable(true);
+    }
+    
     @FXML
     private void showDetallesCliente() throws Exception{
-        /*Clientes x = tableClienteF.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("detallesClienteStage.fxml"));
         loader.load();
         DetallesClienteController controller = loader.getController();
-        controller.setCliente(x);
+        if(tableClienteF.isFocusTraversable()){
+            System.out.println("Es Fisico");
+            ClienteFisico x = tableClienteF.getSelectionModel().getSelectedItem();
+            controller.setCliente(x);
+        }
+        else if(tableClienteM.isFocusTraversable()){
+            System.out.println("Es moral");
+            ClienteMoral x = tableClienteM.getSelectionModel().getSelectedItem();
+            controller.setCliente(x);
+        }
+        else{
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText(null);
+            a.setContentText("Selecciona un cliente");
+        }
+        
+        
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setTitle("Informacion Cliente");
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.showAndWait();*/
+        controller.setPrincipalStage(stage);
+        controller.setPrincipal(mainProgram);
+        stage.showAndWait();
     }
 
     //Metodos locales
@@ -119,10 +151,22 @@ public class MenuStageController implements Initializable {
         columnRemisasF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("remisas"));
         columnPedidosF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("pedidos"));
         columnCorreoF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,String>("correo"));
+        columnPagadasF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("rPagadas"));
         conexion.closeConnection();
         
         //TableView Cliente moral
+        conexion.startConnection();
+        clientesMoralList = FXCollections.observableArrayList();
+        ClienteMoral.llenarTabla(conexion.getConnection(), clientesMoralList);
+        tableClienteM.setItems(clientesMoralList);
+        columnIdClienteM.setCellValueFactory(new PropertyValueFactory<ClienteMoral,Integer>("noCliente"));
+        columnNombreM.setCellValueFactory(new PropertyValueFactory<ClienteMoral,String>("nombre"));
+        columnRemisasM.setCellValueFactory(new PropertyValueFactory<ClienteMoral,Integer>("remisas"));
+        columnPedidosM.setCellValueFactory(new PropertyValueFactory<ClienteMoral,Integer>("pedidos"));
+        columnCorreoM.setCellValueFactory(new PropertyValueFactory<ClienteMoral,String>("correo"));
+        columnPagadasM.setCellValueFactory(new PropertyValueFactory<ClienteMoral,Integer>("rPagadas"));
         
+        conexion.closeConnection();
     }    
     
 }

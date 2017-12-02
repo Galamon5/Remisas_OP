@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="900.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.DetallesClienteController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="900.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.DetallesClienteController">
     <stylesheets>
         <URL value="@estiloDetalles.css" />
     </stylesheets>
@@ -42,10 +42,8 @@
                         <TextField fx:id="nombre" editable="false" GridPane.columnIndex="1" />
                         <TextField fx:id="direccionLocal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Direccion (Local):" GridPane.rowIndex="1" />
-                        <Label text="Correo:" GridPane.columnIndex="2">
-                           <graphic>
-                              <TextField fx:id="correo" editable="false" prefHeight="25.0" prefWidth="297.0" />
-                           </graphic></Label>
+                        <TextField fx:id="correo" editable="false" prefHeight="25.0" prefWidth="297.0" GridPane.columnIndex="3" />
+                        <Label text="Correo:" GridPane.columnIndex="2" />
                         <Label text="Telefonos:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <TableView fx:id="tableTelefonos" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                           <columns>
@@ -125,7 +123,7 @@
                   <Separator layoutX="10.0" layoutY="218.0" prefWidth="200.0" />
                   <VBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0">
                      <children>
-                        <Button id="modificarCliente" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Modificar" textAlignment="CENTER" />
+                        <Button id="modificarCliente" onAction="#modifyButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Modificar" textAlignment="CENTER" />
                      </children>
                   </VBox>
                </children>

@@ -81,4 +81,20 @@ public class Telefonos {
         return telefono;
     }
     
+    public static void llenarTabla(Connection connection, ObservableList<Telefonos> list,int idCliente){
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("select idTelefonos,tipo,telefono,fk_cliente from telefonos where fk_cliente="+idCliente);
+            while(result.next())
+                list.add(new Telefonos(result.getInt("idTelefonos"),result.getInt("fk_cliente"),result.getString("tipo"),result.getString("telefono")));
+        } catch (SQLException ex) {
+            Logger.getLogger(Telefonos.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al generar el Statement");
+            a.setHeaderText("Error al generar el Statement");
+            a.setContentText(ex.getMessage());
+            a.showAndWait();
+        }
+    }
+    
 }

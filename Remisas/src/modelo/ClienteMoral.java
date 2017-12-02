@@ -6,8 +6,15 @@
 package modelo;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -16,7 +23,7 @@ import javafx.collections.ObservableList;
 public class ClienteMoral {
     private IntegerProperty noCliente;
     private StringProperty nombre,direccionLocal,correo,nombreComprador,puesto,tipoCliente;
-    private int pedidos=0,remisas=0;
+    private int pedidos=0,remisas=0,rPagadas=0;
     
     public ClienteMoral(int noCliente,String nombre,String direccionLocal,String correo,
                         String nombreComprador,String puesto,String tipoCliente){
@@ -29,7 +36,7 @@ public class ClienteMoral {
         this.tipoCliente = new SimpleStringProperty(tipoCliente);
     }
     
-    public ClienteMoral(ClienteMoral cliente,int pedidos,int remisas){
+    public ClienteMoral(ClienteMoral cliente,int pedidos,int remisas,int rPagadas){
         this.noCliente = new SimpleIntegerProperty(cliente.getNoCliente());
         this.nombre = new SimpleStringProperty(cliente.getNombre());
         this.direccionLocal = new SimpleStringProperty(cliente.getDireccionLocal());
@@ -39,7 +46,18 @@ public class ClienteMoral {
         this.tipoCliente = new SimpleStringProperty(cliente.getTipoCliente());
         this.pedidos = pedidos;
         this.remisas = remisas;
+        this.rPagadas = rPagadas;
     }
+
+    public int getRPagadas() {
+        return rPagadas;
+    }
+
+    public void setRPagadas(int rPagadas) {
+        this.rPagadas = rPagadas;
+    }
+    
+    
     
     public String getNombreComprador(){
         return nombre.get();
@@ -142,7 +160,45 @@ public class ClienteMoral {
     }
     
     public static void llenarTabla(Connection connection,ObservableList<ClienteMoral> list){
-        int pedido=0,remisa=0;
+        int pedido=0,remisa=0,pagado=0;
+        ArrayList<ClienteMoral> clientes = new ArrayList();
+        ArrayList idClientes = new ArrayList();
         
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(
+                    "select noCliente,nombre,direccionLocal,correo,nombreComprador,"
+                            + "puesto,tipoCliente from clientemoral");
+            while(result.next()){
+                idClientes.add(result.getInt("noCliente"));
+                clientes.add(new ClienteMoral(result.getInt("noCliente"),result.getString("nombre"),
+                                result.getString("direccionLocal"),result.getString("correo"),
+                                result.getString("nombreComprador"),result.getString("puesto"),
+                                result.getString("tipoCliente"))); 
+            }
+            for(int i=0;i<idClientes.size();i++){
+                result = statement.executeQuery("select count(idPedido) as numPedidos from pedido where fk_cliente="+idClientes.get(i));
+                while(result.next())
+                    pedido = result.getInt("numPedidos");
+                result = statement.executeQuery("select count(idPedido) as numRemisas from remisa where fk_cliente="+idClientes.get(i));
+                while(result.next())
+                    remisa = result.getInt("numRemisas");
+                result = statement.executeQuery("select count(idPedido) as numPagadas from remisapagada where fk_cliente="+idClientes.get(i));
+                while(result.next())
+                    pagado = result.getInt("numPagadas");
+                for(int j=0;j<clientes.size();j++){
+                    if(clientes.get(i).getNoCliente()==(int)idClientes.get(j)){
+                        list.add(new ClienteMoral(clientes.get(j),pedido,remisa,pagado));
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteMoral.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al generar el Statement");
+            a.setHeaderText("Error al generar el Statement");
+            a.setContentText(ex.getMessage());
+            a.showAndWait();
+        }
     }
 }

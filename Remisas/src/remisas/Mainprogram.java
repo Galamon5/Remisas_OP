@@ -71,6 +71,22 @@ public class Mainprogram extends Application {
         controller.setPrincipal(this);
     }
     
+    public void stageModifyClient() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("modifyClientStage.fxml"));
+        loader.load();
+        modifyClientController controller = loader.getController();
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setTitle("Modificar Cliente");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        controller.setStagePrincipal(stage);
+        controller.setPrincipal(this);
+        stage.showAndWait();
+        System.out.println("hola");
+    }
+    
     //Registro de nuevo Usuario
     /**
      * @param args the command line arguments
