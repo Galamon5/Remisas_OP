@@ -5,10 +5,7 @@
  */
 package modelo;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +22,7 @@ public class ClienteMoral {
     private StringProperty nombre,direccionLocal,correo,tipoCliente;
     private int pedidos=0,remisas=0,rPagadas=0;
     
-    public ClienteMoral(int noCliente,String nombre,String direccionLocal,String correo,
-                        String nombreComprador,String puesto,String tipoCliente){
+    public ClienteMoral(int noCliente,String nombre,String direccionLocal,String correo,String tipoCliente){
         this.noCliente = new SimpleIntegerProperty(noCliente);
         this.nombre = new SimpleStringProperty(nombre);
         this.direccionLocal = new SimpleStringProperty(direccionLocal);
@@ -138,13 +134,12 @@ public class ClienteMoral {
         try {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(
-                    "select noCliente,nombre,direccionLocal,correo,nombreComprador,"
-                            + "puesto,tipoCliente from clientemoral");
+                    "select noCliente,nombre,direccionLocal,correo,"
+                            + "tipoCliente from clientemoral");
             while(result.next()){
                 idClientes.add(result.getInt("noCliente"));
                 clientes.add(new ClienteMoral(result.getInt("noCliente"),result.getString("nombre"),
                                 result.getString("direccionLocal"),result.getString("correo"),
-                                result.getString("nombreComprador"),result.getString("puesto"),
                                 result.getString("tipoCliente"))); 
             }
             for(int i=0;i<idClientes.size();i++){
@@ -171,5 +166,27 @@ public class ClienteMoral {
             a.setContentText(ex.getMessage());
             a.showAndWait();
         }
+    }
+    
+    public int actualizarCliente(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement("update clientemoral set nombre=?, "
+                    + "direccionLocal=?, correo=?, tipoCliente=? where noCliente=?");
+            instruction.setInt(1, noCliente.get());
+            instruction.setString(1, nombre.get());
+            instruction.setString(2, direccionLocal.get());
+            instruction.setString(3, correo.get());
+            instruction.setString(4, tipoCliente.get());
+            instruction.setInt(5, noCliente.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteMoral.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al actualizar el cliente");
+            a.setHeaderText("Error al intentar actualizar el cliente");
+            a.setContentText(ex.getMessage());
+            return 0;
+        }
+        
     }
 }

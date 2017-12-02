@@ -106,11 +106,13 @@ public class MenuStageController implements Initializable {
             System.out.println("Es Fisico");
             ClienteFisico x = tableClienteF.getSelectionModel().getSelectedItem();
             controller.setCliente(x);
+            controller.setClienteFisicoList(clientesFisicoList,tableClienteF);
         }
         else if(tableClienteM.isFocusTraversable()){
             System.out.println("Es moral");
             ClienteMoral x = tableClienteM.getSelectionModel().getSelectedItem();
             controller.setCliente(x);
+            controller.setClienteMoralList(clientesMoralList,tableClienteM);
         }
         else{
             Alert a = new Alert(Alert.AlertType.ERROR);

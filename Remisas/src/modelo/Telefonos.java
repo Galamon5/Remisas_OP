@@ -23,17 +23,16 @@ public class Telefonos {
     private IntegerProperty idTelefonos,fk_cliente;
     private  StringProperty tipo,telefono;
     
-     private Telefonos(int idTelefonos,int fk_cliente, String tipo,String telefono){
+    public Telefonos(int idTelefonos,int fk_cliente, String tipo,String telefono){
         this.idTelefonos = new SimpleIntegerProperty(idTelefonos);
         this.fk_cliente = new SimpleIntegerProperty(fk_cliente);
         this.tipo = new SimpleStringProperty (tipo);
         this.telefono = new SimpleStringProperty(telefono); 
     }
-    private Telefonos(Telefonos telefonos){
-        this.idTelefonos = new SimpleIntegerProperty(telefonos.getIdTelefonos());
-        this.fk_cliente = new SimpleIntegerProperty(telefonos.getFk_cliente());
-        this.tipo=new SimpleStringProperty(telefonos.getTipo());
-        this.telefono= new SimpleStringProperty(telefonos.getTelefono());
+    public Telefonos(int fk_cliente, String tipo,String telefono){
+        this.fk_cliente = new SimpleIntegerProperty(fk_cliente);
+        this.tipo = new SimpleStringProperty (tipo);
+        this.telefono = new SimpleStringProperty(telefono); 
     }
     
      public int getIdTelefonos(){
@@ -94,6 +93,39 @@ public class Telefonos {
             a.setHeaderText("Error al generar el Statement");
             a.setContentText(ex.getMessage());
             a.showAndWait();
+        }
+    }
+    
+    public int addTelefono(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement(
+                    "insert into telefonos (tipo,telefono,fk_cliente) values (?,?,?)");
+            instruction.setString(1, tipo.get());
+            instruction.setString(2, telefono.get());
+            instruction.setInt(3, fk_cliente.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Telefonos.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al generar el usuario");
+            a.setHeaderText("Error al intentar generar un nuevo telefono");
+            a.setContentText(ex.getMessage());
+            return 0;
+        }
+    }
+    
+    public int borrarTelefono(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement("delete from telefonos where idTelefonos = ?");
+            instruction.setInt(1, idTelefonos.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Telefonos.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al borrar el telefono");
+            a.setHeaderText("Error al intentar borrar el telefono");
+            a.setContentText(ex.getMessage());
+            return 0;
         }
     }
     

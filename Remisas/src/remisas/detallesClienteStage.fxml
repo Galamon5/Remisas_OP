@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -28,8 +29,8 @@
                   <Label id="gridTitle" text="Informacion General" />
                   <GridPane id="form" hgap="10.0" prefHeight="173.0" prefWidth="800.0" vgap="10.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="298.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="97.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="288.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="78.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.0" minWidth="10.0" prefWidth="297.0" />
                     </columnConstraints>
@@ -40,11 +41,20 @@
                      <children>
                         <Label text="Nombre:" />
                         <TextField fx:id="nombre" editable="false" GridPane.columnIndex="1" />
-                        <TextField fx:id="direccionLocal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="direccionLocal" editable="false" prefHeight="25.0" prefWidth="299.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Direccion (Local):" GridPane.rowIndex="1" />
                         <TextField fx:id="correo" editable="false" prefHeight="25.0" prefWidth="297.0" GridPane.columnIndex="3" />
                         <Label text="Correo:" GridPane.columnIndex="2" />
-                        <Label text="Telefonos:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <children>
+                              <Label prefHeight="17.0" prefWidth="128.0" text="Telefonos:" />
+                              <Button fx:id="btnAgregar" disable="true" mnemonicParsing="false" onAction="#agregarTelefono" prefHeight="25.0" prefWidth="77.0" text="Agregar" />
+                              <Button fx:id="btnQuitar" disable="true" mnemonicParsing="false" onAction="#quitarTelefono" prefHeight="25.0" prefWidth="125.0" text="Quitar" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
                         <TableView fx:id="tableTelefonos" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                           <columns>
                             <TableColumn fx:id="columnTipo" prefWidth="76.0" resizable="false" text="Tipo" />
@@ -103,16 +113,10 @@
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Nombre comprador:" />
-                              <Label text="Puesto:" GridPane.rowIndex="1" />
-                              <Label text="Numero de Hacienda" GridPane.rowIndex="2" />
-                              <TextField fx:id="nombreComprador" editable="false" prefHeight="25.0" prefWidth="141.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="puesto" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="noHacienda" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Numero de Hacienda" />
+                              <TextField fx:id="noHacienda" editable="false" GridPane.columnIndex="1" />
                            </children>
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -123,7 +127,12 @@
                   <Separator layoutX="10.0" layoutY="218.0" prefWidth="200.0" />
                   <VBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0">
                      <children>
-                        <Button id="modificarCliente" onAction="#modifyButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Modificar" textAlignment="CENTER" />
+                        <ToolBar prefHeight="40.0" prefWidth="200.0">
+                          <items>
+                              <Button id="modificarCliente" mnemonicParsing="false" onAction="#modifyButton" prefHeight="25.0" prefWidth="90.0" text="Modificar" textAlignment="CENTER" />
+                            <Button fx:id="btnGuardar" disable="true" mnemonicParsing="false" onAction="#guardarCambios" prefWidth="90.0" text="Guardar" />
+                          </items>
+                        </ToolBar>
                      </children>
                   </VBox>
                </children>
