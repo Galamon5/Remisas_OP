@@ -33,7 +33,7 @@
                      <content>
                         <VBox spacing="5.0">
                            <children>
-                              <ImageView fitHeight="35.0" fitWidth="35.0">
+                              <ImageView fitHeight="35.0" fitWidth="35.0" onMouseClicked="#agregarCliente">
                                  <image>
                                     <Image url="@../images/user.png" />
                                  </image>

@@ -5,6 +5,7 @@
  */
 package remisas;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -72,6 +73,23 @@ public class MenuStageController implements Initializable {
     
     //Metodos FXML
     @FXML
+    private void agregarCliente() throws IOException{
+        System.out.println("Agregar Cliente");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("modifyClientStage.fxml"));
+        loader.load();
+        modifyClientController controller = loader.getController();
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setTitle("Agregar Cliente");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        controller.setPrincipal(mainProgram);
+        controller.setStagePrincipal(stage);
+        stage.showAndWait();
+    }
+    
+    @FXML
     private void logOut() throws Exception{
         Alert a = new Alert(AlertType.CONFIRMATION);
         a.setTitle("Cerrando sesion");
@@ -98,38 +116,40 @@ public class MenuStageController implements Initializable {
     
     @FXML
     private void showDetallesCliente() throws Exception{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("detallesClienteStage.fxml"));
-        loader.load();
-        DetallesClienteController controller = loader.getController();
-        if(tableClienteF.isFocusTraversable()){
-            System.out.println("Es Fisico");
-            ClienteFisico x = tableClienteF.getSelectionModel().getSelectedItem();
-            controller.setCliente(x);
-            controller.setClienteFisicoList(clientesFisicoList,tableClienteF);
-        }
-        else if(tableClienteM.isFocusTraversable()){
-            System.out.println("Es moral");
-            ClienteMoral x = tableClienteM.getSelectionModel().getSelectedItem();
-            controller.setCliente(x);
-            controller.setClienteMoralList(clientesMoralList,tableClienteM);
-        }
-        else{
+        
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("detallesClienteStage.fxml"));
+            loader.load();
+            DetallesClienteController controller = loader.getController();
+            if(tableClienteF.isFocusTraversable()){
+                System.out.println("Es Fisico");
+                ClienteFisico x = tableClienteF.getSelectionModel().getSelectedItem();
+                controller.setCliente(x);
+                controller.setClienteFisicoList(clientesFisicoList,tableClienteF);
+            }
+            else if(tableClienteM.isFocusTraversable()){
+                System.out.println("Es moral");
+                ClienteMoral x = tableClienteM.getSelectionModel().getSelectedItem();
+                controller.setCliente(x);
+                controller.setClienteMoralList(clientesMoralList,tableClienteM);
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setTitle("Informacion Cliente");
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            controller.setPrincipalStage(stage);
+            controller.setPrincipal(mainProgram);
+            stage.showAndWait();
+        } catch(Exception ex){
             Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setTitle("Error");
-            a.setHeaderText(null);
+            a.setTitle("Error ");
+            a.setHeaderText("No hay ningun cliente seleccionado");
             a.setContentText("Selecciona un cliente");
+            a.showAndWait();
         }
         
-        
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setTitle("Informacion Cliente");
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        controller.setPrincipalStage(stage);
-        controller.setPrincipal(mainProgram);
-        stage.showAndWait();
     }
     @FXML
     private void borrarCliente(){
