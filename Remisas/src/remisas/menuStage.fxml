@@ -118,6 +118,7 @@
                                  <items>
                                     <Button mnemonicParsing="false" onAction="#showDetallesCliente" prefHeight="25.0" prefWidth="94.0" text="Modificar" />
                                     <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Borrar" />
+                                    <Button layoutX="108.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="206.0" text="Imprimir reporte de inventario" />
                                  </items>
                               </ToolBar>
                            </children>
@@ -145,10 +146,14 @@
                                     <TableColumn fx:id="columnMonto" prefWidth="157.0" text="Monto" />
                                 </columns>
                               </TableView>
-                              <ToolBar>
+                              <ToolBar prefHeight="35.0" prefWidth="754.0">
                                  <items>
-                                    <Button mnemonicParsing="false" onAction="#showDetallesCliente" prefHeight="25.0" prefWidth="94.0" text="Actualizar" />
-                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Borrar" />
+                                    <Button layoutX="383.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Imprimir Pedido" />
+                                    <Button mnemonicParsing="false" onAction="#showDetallesCliente" prefHeight="25.0" prefWidth="111.0" text="Actualizar Pedido" />
+                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Borrar Pedido" />
+                                    <Button layoutX="134.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Convertir en Remisa" />
+                                    <Button layoutX="240.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Ver Remisas" />
+                                    <Button layoutX="358.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="171.0" text="Imprimir reporte de pedidos" />
                                  </items>
                               </ToolBar>
                            </children>
