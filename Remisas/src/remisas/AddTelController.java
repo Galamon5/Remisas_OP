@@ -6,12 +6,14 @@
 package remisas;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -38,12 +40,15 @@ public class AddTelController implements Initializable {
     //Metodos FXML
     @FXML
     public void aceptar(){
+        int tel;
         System.out.println("noCliente al aceptar: "+noCliente);
         Alert a;
         Telefonos x = new Telefonos(noCliente,tipo.getSelectionModel().getSelectedItem(),telefono.getText());
         conexion.startConnection();
         int res = x.addTelefono(conexion.getConnection());
+        tel = x.getIdTelefonos(conexion.getConnection(), x.getTelefono());
         conexion.closeConnection();
+        x.setIdTelefonos(tel);
         if(res == 1){
             list.add(x);
             a = new Alert(Alert.AlertType.INFORMATION);
@@ -52,17 +57,24 @@ public class AddTelController implements Initializable {
             a.setContentText("El telefono fue registrado satisfactoriamente");
             a.showAndWait();
             mainStage.close();
-            }
-            else {
-                a = new Alert(Alert.AlertType.ERROR);
-                a.setTitle("Error al guardar el telefono");
-                a.setHeaderText(null);
-                a.setContentText("Ocurrio un error al guardar el telefono");
-                a.showAndWait();
-            }
+        } else {
+            a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al guardar el telefono");
+            a.setHeaderText(null);
+            a.setContentText("Ocurrio un error al guardar el telefono");
+            a.showAndWait();
+        }
     }
     @FXML
     public void cancelar(){
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Cancelando operacion");
+        a.setHeaderText(null);
+        a.setContentText("¿Estas seguro de que quieres cancelar la operacion?");
+        Optional<ButtonType> result = a.showAndWait();
+        if(result.get() == ButtonType.OK){
+            mainStage.close();
+        }
         
     }
     

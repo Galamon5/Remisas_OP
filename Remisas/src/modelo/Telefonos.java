@@ -129,4 +129,24 @@ public class Telefonos {
         }
     }
     
+    public int getIdTelefonos(Connection connection,String telefono){
+        int res=0;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("select idTelefonos from telefonos where telefono="+telefono);
+            while(result.next())
+                res = result.getInt("idTelefonos");
+            return res;
+        } catch (SQLException ex) {
+            Logger.getLogger(Telefonos.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al generar el Statement");
+            a.setHeaderText("Error al generar el Statement");
+            a.setContentText(ex.getMessage());
+            a.showAndWait();
+            return 0;
+        }
+        
+    }
+    
 }

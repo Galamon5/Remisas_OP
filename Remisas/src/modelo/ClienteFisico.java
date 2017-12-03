@@ -213,6 +213,28 @@ public class ClienteFisico {
             a.setTitle("Error al borrar cliente");
             a.setHeaderText("Error al intentar borrar cliente");
             a.setContentText(ex.getMessage());
+            a.showAndWait();
+            return 0;
+        }
+    }
+    
+    public int agregarCliente(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement("insert into clientefisico values (?,?,?,?,?,?)");
+            instruction.setInt(1, noCliente.get());
+            instruction.setString(2, nombre.get());
+            instruction.setString(3, direccionLocal.get());
+            instruction.setString(4, correo.get());
+            instruction.setString(5, direccionPersonal.get());
+            instruction.setString(6, tipoCliente.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteFisico.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al agregar al cliente");
+            a.setHeaderText("Error al intentar agregar al cliente");
+            a.setContentText(ex.getMessage());
+            a.showAndWait();
             return 0;
         }
     }

@@ -8,6 +8,8 @@ package remisas;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -49,6 +51,17 @@ public class DetallesClienteController implements Initializable {
     private TableView<ClienteFisico> tableFisico;
     
     //Metodos locales
+    public void gestionarEventos(){
+        tableTelefonos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Telefonos>(){
+            @Override
+            public void changed(ObservableValue<? extends Telefonos> observable, Telefonos oldValue, Telefonos newValue) {
+                System.out.println("Valor anterior: "+oldValue.getIdTelefonos());
+                System.out.println("Nuevo valor: "+newValue.getIdTelefonos());
+            }
+            
+        });
+    }
+    
     public void setPrincipalStage(Stage stage){
         mainStage = stage;
     }
@@ -108,7 +121,7 @@ public class DetallesClienteController implements Initializable {
     }
     @FXML
     public void agregarTelefono() throws IOException{
-        System.out.println(noCliente);
+        System.out.println("noCliente:"+noCliente);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("addTel.fxml"));
         loader.load();
@@ -129,6 +142,7 @@ public class DetallesClienteController implements Initializable {
         Alert a;
         Telefonos x = tableTelefonos.getSelectionModel().getSelectedItem();
         conexion.startConnection();
+        System.out.println("idTelefono: "+x.getIdTelefonos()+"  fk_cliente:"+x.getFk_cliente());
         int res = x.borrarTelefono(conexion.getConnection());
         conexion.closeConnection();
         if(res == 1){
@@ -193,6 +207,7 @@ public class DetallesClienteController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
     }    
     
 }
