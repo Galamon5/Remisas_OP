@@ -119,6 +119,7 @@
                                     <Button mnemonicParsing="false" onAction="#showDetallesCliente" prefHeight="25.0" prefWidth="94.0" text="Modificar" />
                                     <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Borrar" />
                                     <Button layoutX="108.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="206.0" text="Imprimir reporte de inventario" />
+                                    <Button mnemonicParsing="false" onAction="#borrarCliente" prefHeight="25.0" prefWidth="93.0" text="Borrar" />
                                  </items>
                               </ToolBar>
                            </children>
