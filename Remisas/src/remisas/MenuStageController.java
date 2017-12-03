@@ -86,6 +86,8 @@ public class MenuStageController implements Initializable {
         stage.setScene(scene);
         controller.setPrincipal(mainProgram);
         controller.setStagePrincipal(stage);
+        controller.setTableFisico(tableClienteF, clientesFisicoList);
+        controller.setTableMoral(tableClienteM, clientesMoralList);
         stage.showAndWait();
     }
     
@@ -160,6 +162,7 @@ public class MenuStageController implements Initializable {
             System.out.println("Es Fisico");
             ClienteFisico x = tableClienteF.getSelectionModel().getSelectedItem();
             res = x.borrarCliente(conexion.getConnection());
+            Telefonos.borrarTelefono(conexion.getConnection(), x.getNoCliente());
             if(res == 1){
                 this.clientesFisicoList.remove(tableClienteF.getSelectionModel().getSelectedIndex());
             }
@@ -168,6 +171,7 @@ public class MenuStageController implements Initializable {
             System.out.println("Es moral");
             ClienteMoral x = tableClienteM.getSelectionModel().getSelectedItem();
             res = x.borrarCliente(conexion.getConnection());
+            Telefonos.borrarTelefono(conexion.getConnection(), x.getNoCliente());
             if(res == 1){
                 this.clientesMoralList.remove(tableClienteM.getSelectionModel().getSelectedIndex());
             }

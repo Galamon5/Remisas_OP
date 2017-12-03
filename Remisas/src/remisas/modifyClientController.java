@@ -40,6 +40,10 @@ public class modifyClientController implements Initializable {
     private Stage mainStage;
     private Mainprogram mainProgram;
     private Conector conexion;
+    private TableView<ClienteFisico> tableClienteFisico;
+    private TableView<ClienteMoral> tableClienteMoral;
+    private ObservableList<ClienteFisico> clienteFisicoList;
+    private ObservableList<ClienteMoral> clienteMoralList;
     
     //Metodos FXML
     @FXML
@@ -54,6 +58,8 @@ public class modifyClientController implements Initializable {
     }
     @FXML
     private void agregarTelefono() throws IOException{
+        rfc.setEditable(false);
+        noHacienda.setEditable(false);
         System.out.println("RFC: "+rfc.getText()+"  noHacienda: "+noHacienda.getText());
         if(rfc.getText().equals("") && noHacienda.getText().equals("")){
             Alert a = new Alert(Alert.AlertType.ERROR);
@@ -124,12 +130,27 @@ public class modifyClientController implements Initializable {
                 ClienteFisico x = new ClienteFisico(Integer.valueOf(rfc.getText()),nombre.getText(),
                                     direccionLocal.getText(),correo.getText(),direccionPersonal.getText(),"Fisico");
                 res = x.agregarCliente(conexion.getConnection());
+                if(res == 1){
+                    clienteFisicoList.add(x);
+                }
             }else{
                 ClienteMoral x = new ClienteMoral(Integer.valueOf(noHacienda.getText()),nombre.getText(),direccionLocal.getText(),
                                     correo.getText(),"Moral");
                 res = x.agregarCliente(conexion.getConnection());
+                if(res == 1){
+                    clienteMoralList.add(x);
+                }
             }
             if(res == 1){
+                nombre.setText("");
+                direccionLocal.setText("");
+                correo.setText("");
+                direccionPersonal.setText("");
+                rfc.setText("");
+                noHacienda.setText("");
+                while(telefonosList.size()>0){
+                    telefonosList.remove(0);
+                }
                 Alert a = new Alert(Alert.AlertType.INFORMATION);
                 a.setTitle("Agregar Cliente");
                 a.setHeaderText(null);
@@ -162,6 +183,16 @@ public class modifyClientController implements Initializable {
     
     public void setPrincipal(Mainprogram mainProgram){
         this.mainProgram = mainProgram;
+    }
+    
+    public void setTableFisico(TableView<ClienteFisico> tableClienteFisico,ObservableList<ClienteFisico> clienteFisicoList){
+        this.tableClienteFisico = tableClienteFisico;
+        this.clienteFisicoList = clienteFisicoList;
+    }
+    
+    public void setTableMoral(TableView<ClienteMoral> tableClienteMoral, ObservableList<ClienteMoral> clienteMoralList){
+        this.tableClienteMoral = tableClienteMoral;
+        this.clienteMoralList = clienteMoralList;
     }
 
     @Override
