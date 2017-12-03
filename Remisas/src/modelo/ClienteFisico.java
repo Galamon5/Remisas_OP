@@ -23,7 +23,7 @@ public class ClienteFisico {
     private StringProperty nombre,direccionLocal,correo,direccionPersonal,tipoCliente;
     private int pedidos=0,remisas=0,rPagadas=0;
     
-    private ClienteFisico(int noCliente,String nombre,String direccionLocal, String correo,String direccionPersonal, String tipoCliente){
+    public ClienteFisico(int noCliente,String nombre,String direccionLocal, String correo,String direccionPersonal, String tipoCliente){
         this.noCliente = new SimpleIntegerProperty(noCliente);
         this.nombre = new SimpleStringProperty(nombre);
         this.direccionLocal = new SimpleStringProperty(direccionLocal);
@@ -32,7 +32,7 @@ public class ClienteFisico {
         this.tipoCliente = new SimpleStringProperty(tipoCliente);
     }
     
-    private ClienteFisico(ClienteFisico cliente,int pedidos,int remisas,int rPagadas){
+    public ClienteFisico(ClienteFisico cliente,int pedidos,int remisas,int rPagadas){
         this.noCliente = new SimpleIntegerProperty(cliente.getNoCliente());
         this.nombre = new SimpleStringProperty(cliente.getNombre());
         this.direccionLocal = new SimpleStringProperty(cliente.getDireccionLocal());
@@ -179,5 +179,41 @@ public class ClienteFisico {
             a.setContentText(ex.getMessage());
             a.showAndWait();
         }
-    }   
+    }
+    
+    public int actualizarCliente(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement(
+                    "update clientefisico set nombre= ?, direccionLocal= ?, correo= ?, direccionPersonal= ? where noCliente= ?");
+            instruction.setString(1, nombre.get());
+            instruction.setString(2,direccionLocal.get());
+            instruction.setString(3, correo.get());
+            instruction.setString(4, direccionPersonal.get());
+            instruction.setInt(5, noCliente.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteFisico.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al actualizar el cliente");
+            a.setHeaderText("Error al intentar actualizar el cliente");
+            a.setContentText(ex.getMessage());
+            a.showAndWait();
+            return 0;
+        }
+    }
+    
+    public int borrarCliente(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement("delete from ClienteFisico where noCliente = ?");
+            instruction.setInt(1, noCliente.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Telefonos.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al borrar cliente");
+            a.setHeaderText("Error al intentar borrar cliente");
+            a.setContentText(ex.getMessage());
+            return 0;
+        }
+    }
 }
