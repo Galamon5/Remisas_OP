@@ -97,7 +97,7 @@
                      <content>
                         <VBox id="Content" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
                            <children>
-                              <ImageView fitHeight="35.0" fitWidth="35.0">
+                              <ImageView fitHeight="35.0" fitWidth="35.0" onMouseClicked="#agregarInventario">
                                  <image>
                                     <Image url="@../images/plus.png" />
                                  </image>
@@ -107,18 +107,20 @@
                               </ImageView>
                               <TableView fx:id="tableInventario" prefHeight="326.0" prefWidth="700.0">
                                 <columns>
-                                  <TableColumn fx:id="columnIdInventario" prefWidth="39.0" text="ID" />
-                                  <TableColumn fx:id="columnProducto" prefWidth="255.0" text="Producto" />
-                                    <TableColumn fx:id="columnMarca" prefWidth="223.0" text="Marca" />
-                                    <TableColumn fx:id="columnPrecio" prefWidth="97.0" text="Precio" />
-                                    <TableColumn fx:id="columnCantidad" prefWidth="105.0" text="Cantidad p/caja" />
+                                  <TableColumn fx:id="columnIdInventario" prefWidth="39.0" resizable="false" text="ID" />
+                                  <TableColumn fx:id="columnProducto" prefWidth="203.0" resizable="false" text="Producto" />
+                                    <TableColumn fx:id="columnMarca" prefWidth="198.0" resizable="false" text="Marca" />
+                                    <TableColumn fx:id="columnCantidad" prefWidth="111.0" resizable="false" text="Cantidad p/caja" />
+                                    <TableColumn fx:id="columnExistencias" prefWidth="89.0" resizable="false" text="Existencias" />
+                                    <TableColumn fx:id="columnPrecio" prefWidth="79.0" resizable="false" text="Precio" />
                                 </columns>
                               </TableView>
                               <ToolBar>
                                  <items>
-                                    <Button mnemonicParsing="false" onAction="#showDetallesCliente" prefHeight="25.0" prefWidth="94.0" text="Modificar" />
-                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Borrar" />
-                                    <Button layoutX="108.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="206.0" text="Imprimir reporte de inventario" />
+                                    <Button mnemonicParsing="false" onAction="#modificarProducto" prefHeight="25.0" prefWidth="94.0" text="Modificar" />
+                                    <Button mnemonicParsing="false" onAction="#borrarProducto" prefHeight="25.0" prefWidth="93.0" text="Borrar" />
+                                    <Button layoutX="108.0" layoutY="10.0" mnemonicParsing="false" onAction="#imprimirReporte" prefHeight="25.0" prefWidth="206.0" text="Imprimir reporte de inventario" />
+                                    <Button mnemonicParsing="false" onAction="#borrarProducto" prefHeight="25.0" prefWidth="93.0" text="Borrar" />
                                  </items>
                               </ToolBar>
                            </children>

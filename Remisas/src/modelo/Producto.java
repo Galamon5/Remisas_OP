@@ -108,7 +108,22 @@ public class Producto {
         return precio;
     }
     
-
+    public static void llenarTabla(Connection connection,ObservableList<Producto> list){
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("select idProducto,nombre,marca,stock,cantidadPorCaja,precio from producto");
+            while(result.next())
+                list.add(new Producto(result.getInt("idProducto"),result.getInt("stock"),result.getInt("cantidadPorCaja"),
+                                        result.getString("nombre"),result.getString("marca"),result.getDouble("precio")));
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al generar el statement");
+            a.setHeaderText(null);
+            a.setContentText("Ocurrio un error al intentar generar el statement");
+            a.showAndWait();
+        }
+    }
     
 }
 

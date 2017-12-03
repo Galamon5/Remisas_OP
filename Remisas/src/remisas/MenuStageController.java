@@ -33,7 +33,45 @@ public class MenuStageController implements Initializable {
     private Mainprogram mainProgram;
     private ObservableList<ClienteFisico> clientesFisicoList;
     private ObservableList<ClienteMoral> clientesMoralList;
+    private ObservableList<Producto> productoList;
     private Conector conexion;
+    
+    //variable FXML control de pedidos
+    @FXML TableView tablePedido;
+    @FXML TableColumn columnIdPedido;
+    @FXML TableColumn columnTipoPedido;
+    @FXML TableColumn columnCliente;
+    @FXML TableColumn columnFecha;
+    @FXML TableColumn columnMonto;
+    @FXML TableColumn columnDetallesPedido;
+    @FXML TableColumn columnBorrarPedido;
+    
+    //varibale FXML control de inventario;
+    @FXML TableView<Producto> tableInventario;
+    @FXML TableColumn<Producto,Integer> columnIdInventario;
+    @FXML TableColumn<Producto,String> columnProducto;
+    @FXML TableColumn<Producto,String> columnMarca;
+    @FXML TableColumn<Producto,Double> columnPrecio;
+    @FXML TableColumn<Producto,Integer> columnCantidad;
+    @FXML TableColumn<Producto,Integer> columnExistencias;
+    
+    //metodos FXLM para control de inventario
+    @FXML
+    private void agregarInventario(){
+        System.out.println("AgregarInventario");
+    }
+    @FXML
+    private void modificarProducto(){
+        System.out.println("Modificar Producto");
+    }
+    @FXML
+    private void borrarProducto(){
+        System.out.println("Borrar producto");
+    }
+    @FXML
+    private void imprimirReporte(){
+        System.out.println("Imprimir reporte");
+    }
     
     //variables FXML control de clientes
     @FXML TableView<ClienteFisico> tableClienteF;
@@ -51,27 +89,7 @@ public class MenuStageController implements Initializable {
     @FXML TableColumn<ClienteMoral,Integer> columnRemisasM;
     @FXML TableColumn<ClienteMoral,Integer> columnPagadasM;
     
-    //varibale FXML control de inventario;
-    @FXML TableView tableInventario;
-    @FXML TableColumn columnIdInventario;
-    @FXML TableColumn columnProducto;
-    @FXML TableColumn columnMarca;
-    @FXML TableColumn columnPrecio;
-    @FXML TableColumn columnCantidad;
-    @FXML TableColumn columnModificar;
-    @FXML TableColumn columnBorrarInventario;
-    
-    //variable FXML control de pedidos
-    @FXML TableView tablePedido;
-    @FXML TableColumn columnIdPedido;
-    @FXML TableColumn columnTipoPedido;
-    @FXML TableColumn columnCliente;
-    @FXML TableColumn columnFecha;
-    @FXML TableColumn columnMonto;
-    @FXML TableColumn columnDetallesPedido;
-    @FXML TableColumn columnBorrarPedido;
-    
-    //Metodos FXML
+    //Metodos FXML para control de Clientes
     @FXML
     private void agregarCliente() throws IOException{
         System.out.println("Agregar Cliente");
@@ -86,6 +104,8 @@ public class MenuStageController implements Initializable {
         stage.setScene(scene);
         controller.setPrincipal(mainProgram);
         controller.setStagePrincipal(stage);
+        controller.setTableFisico(tableClienteF, clientesFisicoList);
+        controller.setTableMoral(tableClienteM, clientesMoralList);
         stage.showAndWait();
     }
     
@@ -160,6 +180,7 @@ public class MenuStageController implements Initializable {
             System.out.println("Es Fisico");
             ClienteFisico x = tableClienteF.getSelectionModel().getSelectedItem();
             res = x.borrarCliente(conexion.getConnection());
+            Telefonos.borrarTelefono(conexion.getConnection(), x.getNoCliente());
             if(res == 1){
                 this.clientesFisicoList.remove(tableClienteF.getSelectionModel().getSelectedIndex());
             }
@@ -168,6 +189,7 @@ public class MenuStageController implements Initializable {
             System.out.println("Es moral");
             ClienteMoral x = tableClienteM.getSelectionModel().getSelectedItem();
             res = x.borrarCliente(conexion.getConnection());
+            Telefonos.borrarTelefono(conexion.getConnection(), x.getNoCliente());
             if(res == 1){
                 this.clientesMoralList.remove(tableClienteM.getSelectionModel().getSelectedIndex());
             }
@@ -230,7 +252,19 @@ public class MenuStageController implements Initializable {
         columnPedidosM.setCellValueFactory(new PropertyValueFactory<ClienteMoral,Integer>("pedidos"));
         columnCorreoM.setCellValueFactory(new PropertyValueFactory<ClienteMoral,String>("correo"));
         columnPagadasM.setCellValueFactory(new PropertyValueFactory<ClienteMoral,Integer>("rPagadas"));
+        conexion.closeConnection();
         
+        //TableView Productos
+        conexion.startConnection();
+        productoList = FXCollections.observableArrayList();
+        Producto.llenarTabla(conexion.getConnection(), productoList);
+        tableInventario.setItems(productoList);
+        columnIdInventario.setCellValueFactory(new PropertyValueFactory<>("idProducto"));
+        columnProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columnMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        columnCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidadPorCaja"));
+        columnExistencias.setCellValueFactory(new PropertyValueFactory<>("stock"));
         conexion.closeConnection();
     }    
     

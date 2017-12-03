@@ -129,6 +129,22 @@ public class Telefonos {
         }
     }
     
+    public static int borrarTelefono(Connection connection,int fk_cliente){
+        try {
+            System.out.println("Se borrara:"+fk_cliente);
+            PreparedStatement instruction = connection.prepareStatement("delete from telefonos where fk_cliente = ?");
+            instruction.setInt(1, fk_cliente);
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Telefonos.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al borrar el telefono");
+            a.setHeaderText("Error al intentar borrar el telefono");
+            a.setContentText(ex.getMessage());
+            return 0;
+        }
+    }
+    
     public int getIdTelefonos(Connection connection,String telefono){
         int res=0;
         try {
