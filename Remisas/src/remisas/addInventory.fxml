@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" minHeight="537.0" minWidth="739.0" prefHeight="550.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.modifyClientController">
+<AnchorPane id="AnchorPane" minHeight="537.0" minWidth="739.0" prefHeight="550.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.addInventoryController">
     <stylesheets>
         <URL value="@estiloDetalles.css" />
     </stylesheets>
@@ -41,14 +41,14 @@
                         <Label text="Marca:" GridPane.rowIndex="1" />
                         <Label text="Cantidad por caja:" GridPane.rowIndex="3" />
                         <Label layoutX="10.0" layoutY="30.0" text="Nombre:" />
-                        <TextField fx:id="nombre" editable="false" layoutX="117.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="marca" layoutX="117.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label layoutX="10.0" layoutY="48.0" text="Stock:" GridPane.rowIndex="2" />
-                        <TextField fx:id="nombre1" editable="false" layoutX="121.0" layoutY="55.0" GridPane.columnIndex="1" />
-                        <Spinner GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Spinner layoutX="121.0" layoutY="99.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="nombre" layoutX="121.0" layoutY="55.0" GridPane.columnIndex="1" />
+                        <Spinner fx:id="stock" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Spinner fx:id="cantidadCaja" editable="true" layoutX="121.0" layoutY="99.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <children>
-                              <TextField fx:id="nombre2" editable="false" />
+                              <TextField fx:id="precio" />
                            </children>
                         </VBox>
                         <Label text="Precio:        $ " GridPane.rowIndex="4" />
@@ -69,8 +69,8 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button id="addNewClient" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Agregar" textAlignment="CENTER" GridPane.valignment="CENTER" />
-                              <Button cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Cancelar" textAlignment="CENTER" GridPane.columnIndex="1" />
+                              <Button id="addNewClient" contentDisplay="CENTER" mnemonicParsing="false" onAction="#agregar" prefHeight="25.0" prefWidth="89.0" text="Agregar" textAlignment="CENTER" GridPane.valignment="CENTER" />
+                              <Button cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="89.0" text="Cancelar" textAlignment="CENTER" GridPane.columnIndex="1" />
                            </children>
                            <VBox.margin>
                               <Insets />

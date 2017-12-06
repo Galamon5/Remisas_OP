@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" minHeight="537.0" minWidth="739.0" prefHeight="550.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.modifyClientController">
+<AnchorPane id="AnchorPane" minHeight="537.0" minWidth="739.0" prefHeight="550.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="remisas.ModifyInventoryController">
     <stylesheets>
         <URL value="@estiloDetalles.css" />
     </stylesheets>
@@ -44,14 +44,14 @@
                         <TextField fx:id="nombre" editable="false" layoutX="117.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label layoutX="10.0" layoutY="48.0" text="Stock:" GridPane.rowIndex="2" />
                         <TextField fx:id="nombre1" editable="false" layoutX="121.0" layoutY="55.0" GridPane.columnIndex="1" />
-                        <Spinner GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Spinner layoutX="121.0" layoutY="99.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <children>
                               <TextField fx:id="nombre2" editable="false" />
                            </children>
                         </VBox>
                         <Label text="Precio:   $ " GridPane.rowIndex="4" />
+                        <Spinner GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Spinner GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

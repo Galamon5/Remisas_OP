@@ -35,6 +35,7 @@ public class MenuStageController implements Initializable {
     private ObservableList<ClienteMoral> clientesMoralList;
     private ObservableList<Producto> productoList;
     private Conector conexion;
+    private Alert a;
     
     //variable FXML control de pedidos
     @FXML TableView tablePedido;
@@ -57,12 +58,38 @@ public class MenuStageController implements Initializable {
     
     //metodos FXLM para control de inventario
     @FXML
-    private void agregarInventario(){
+    private void agregarInventario() throws IOException{
         System.out.println("AgregarInventario");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("addInventory.fxml"));
+        loader.load();
+        addInventoryController controller = loader.getController();
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Agregar Inventario");
+        stage.setScene(scene);
+        controller.setPrincipal(mainProgram);
+        controller.setStagePrincipal(stage);
+        controller.setObservableList(productoList);
+        stage.showAndWait();
+        
     }
     @FXML
-    private void modificarProducto(){
+    private void modificarProducto() throws IOException{
         System.out.println("Modificar Producto");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("modifyInventory.fxml"));
+        loader.load();
+        ModifyInventoryController controller = loader.getController();
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setTitle("Modificar inventario");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        controller.setPrincipal(mainProgram);
+        controller.setStagePrincipal(stage);
+        stage.showAndWait();
     }
     @FXML
     private void borrarProducto(){
@@ -111,7 +138,7 @@ public class MenuStageController implements Initializable {
     
     @FXML
     private void logOut() throws Exception{
-        Alert a = new Alert(AlertType.CONFIRMATION);
+        a = new Alert(AlertType.CONFIRMATION);
         a.setTitle("Cerrando sesion");
         a.setHeaderText("Estas apunto de cerrar sesion");
         a.setContentText("¿Estas seguro?");
@@ -163,7 +190,7 @@ public class MenuStageController implements Initializable {
             controller.setPrincipal(mainProgram);
             stage.showAndWait();
         } catch(Exception ex){
-            Alert a = new Alert(Alert.AlertType.ERROR);
+            a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error ");
             a.setHeaderText("No hay ningun cliente seleccionado");
             a.setContentText("Selecciona un cliente");
@@ -195,20 +222,20 @@ public class MenuStageController implements Initializable {
             }
         }
         else{
-            Alert a = new Alert(Alert.AlertType.ERROR);
+            a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error");
             a.setHeaderText(null);
             a.setContentText("Selecciona un cliente");
         }
         if(res == 1){
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a = new Alert(Alert.AlertType.INFORMATION);
             a.setTitle("Se borro cliente");
             a.setHeaderText(null);
             a.setContentText("El cliente se borro satisfactoriamente");
             a.showAndWait();
         }
         else{
-            Alert a = new Alert(Alert.AlertType.ERROR);
+            a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Ocurrio un error al borrar el cliente");
             a.setHeaderText(null);
             a.setContentText("Ocurrio un error al borrar el cliente");

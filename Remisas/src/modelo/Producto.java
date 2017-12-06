@@ -24,7 +24,7 @@ public class Producto {
     private  StringProperty nombre,marca;
     private DoubleProperty precio;
     
-     private Producto(int idProducto,int stock, int cantidadPorCaja, String nombre, String marca, Double precio){
+     public Producto(int idProducto,int stock, int cantidadPorCaja, String nombre, String marca, Double precio){
         this.idProducto = new SimpleIntegerProperty(idProducto);
         this.stock = new SimpleIntegerProperty(stock);
         this.cantidadPorCaja = new SimpleIntegerProperty(cantidadPorCaja);
@@ -33,13 +33,14 @@ public class Producto {
         this.precio = new SimpleDoubleProperty(precio);
         
     }
-    private Producto(Producto producto){
-        this.idProducto = new SimpleIntegerProperty(producto.getIdProducto());
-        this.stock = new SimpleIntegerProperty(producto.getStock());
-        this.cantidadPorCaja = new SimpleIntegerProperty(producto.getCantidadPorCaja());
-        this.nombre = new SimpleStringProperty(producto.getNombre());
-        this.marca = new SimpleStringProperty(producto.getMarca());
-        this.precio = new SimpleDoubleProperty(producto.getPrecio());
+    public Producto(int stock, int cantidadPorCaja, String nombre, String marca, Double precio){
+        
+        this.idProducto = new SimpleIntegerProperty(0);
+        this.stock = new SimpleIntegerProperty(stock);
+        this.cantidadPorCaja = new SimpleIntegerProperty(cantidadPorCaja);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.marca = new SimpleStringProperty(marca);
+        this.precio = new SimpleDoubleProperty(precio);
     }
     
      public int getIdProducto(){
@@ -125,5 +126,45 @@ public class Producto {
         }
     }
     
+    public int addProducto(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement("insert into producto "
+                    + "(nombre,marca,stock,cantidadPorCaja,precio) values (?,?,?,?,?)");
+            instruction.setString(1, nombre.get());
+            instruction.setString(2, marca.get());
+            instruction.setInt(3, stock.get());
+            instruction.setInt(4, cantidadPorCaja.get());
+            instruction.setDouble(5, precio.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al generar el Statement");
+            a.setHeaderText(null);
+            a.setContentText("Se genero un error al intentar generar el statement");
+            a.showAndWait();
+            return 0;
+        }
+    }
+    
+    public static int getIdPedido(Connection connection){
+        int id = 0;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("select max(idProducto) as max from producto");
+            while(result.next()){
+                id = result.getInt("max");
+            }
+            return id;
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al generar el Statement");
+            a.setHeaderText("Se genero un error al intentar generar el statement");
+            a.setContentText(ex.getMessage());
+            a.showAndWait();
+            return 0;
+        }
+    }
 }
 
