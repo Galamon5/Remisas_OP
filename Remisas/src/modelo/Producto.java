@@ -166,5 +166,41 @@ public class Producto {
             return 0;
         }
     }
+    
+    public int borrarProducto(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement("delete from producto where idProducto= ?");
+            instruction.setInt(1, idProducto.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al borrar el producto");
+            a.setHeaderText("Error al intentar borrar el producto");
+            a.setContentText(ex.getMessage());
+            return 0;
+        }
+    }
+    
+    public int actualizarProducto(Connection connection){
+        try {
+            PreparedStatement instruction = connection.prepareStatement(
+                    "update producto set nombre=?, marca=?, stock=?, cantidadPorCaja=?, precio=? where idProducto=?");
+            instruction.setString(1, nombre.get());
+            instruction.setString(2, marca.get());
+            instruction.setInt(3, stock.get());
+            instruction.setInt(4, cantidadPorCaja.get());
+            instruction.setDouble(5, precio.get());
+            instruction.setInt(6, idProducto.get());
+            return instruction.executeUpdate();
+        } catch (SQLException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error en la base de datos");
+            a.setHeaderText("Error al intentar actualizar el pedido en la base de datos");
+            a.setContentText(ex.getMessage());
+            a.showAndWait();
+            return 0;
+        }
+    }
 }
 

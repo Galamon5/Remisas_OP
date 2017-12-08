@@ -89,11 +89,32 @@ public class MenuStageController implements Initializable {
         stage.setScene(scene);
         controller.setPrincipal(mainProgram);
         controller.setStagePrincipal(stage);
+        controller.setProducto(tableInventario.getSelectionModel().getSelectedItem());
+        controller.setObservableList(productoList);
+        controller.setTableView(tableInventario);
+        System.out.println("ModificarProducto: "+tableInventario.getSelectionModel().getSelectedItem());
         stage.showAndWait();
     }
     @FXML
     private void borrarProducto(){
         System.out.println("Borrar producto");
+        Producto x = tableInventario.getSelectionModel().getSelectedItem();
+        conexion.startConnection();
+        int res = x.borrarProducto(conexion.getConnection());
+        if(res == 1){
+            productoList.remove(x);
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setTitle("Producto borrado");
+            a.setHeaderText(null);
+            a.setContentText("El producto se borro satisfactoriamente");
+            a.showAndWait();
+        } else {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error al borrar el producto");
+            a.setHeaderText(null);
+            a.setContentText("Ocurrio un error al intentar borrar el producto");
+            a.showAndWait();
+        }
     }
     @FXML
     private void imprimirReporte(){

@@ -51,16 +51,6 @@ public class DetallesClienteController implements Initializable {
     private TableView<ClienteFisico> tableFisico;
     
     //Metodos locales
-    public void gestionarEventos(){
-        tableTelefonos.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Telefonos>(){
-            @Override
-            public void changed(ObservableValue<? extends Telefonos> observable, Telefonos oldValue, Telefonos newValue) {
-                System.out.println("Valor anterior: "+oldValue.getIdTelefonos());
-                System.out.println("Nuevo valor: "+newValue.getIdTelefonos());
-            }
-            
-        });
-    }
     
     public void setPrincipalStage(Stage stage){
         mainStage = stage;
