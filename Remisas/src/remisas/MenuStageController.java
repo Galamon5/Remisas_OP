@@ -7,6 +7,7 @@ package remisas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -34,18 +35,19 @@ public class MenuStageController implements Initializable {
     private ObservableList<ClienteFisico> clientesFisicoList;
     private ObservableList<ClienteMoral> clientesMoralList;
     private ObservableList<Producto> productoList;
+    private ObservableList<Pedido> pedidoList;
     private Conector conexion;
     private Alert a;
     
     //variable FXML control de pedidos
-    @FXML TableView tablePedido;
-    @FXML TableColumn columnIdPedido;
-    @FXML TableColumn columnTipoPedido;
-    @FXML TableColumn columnCliente;
-    @FXML TableColumn columnFecha;
-    @FXML TableColumn columnMonto;
-    @FXML TableColumn columnDetallesPedido;
-    @FXML TableColumn columnBorrarPedido;
+    @FXML TableView<Pedido> tablePedido;
+    @FXML TableColumn<Pedido,Integer> columnIdPedido;
+    @FXML TableColumn<Pedido,String> columnTipoPedido;
+    @FXML TableColumn<Pedido,String> columnCliente;
+    @FXML TableColumn<Pedido,Date> columnFecha;
+    @FXML TableColumn<Pedido,Integer> columnMonto;
+    
+    //metodos FXML control de pedidos
     
     //varibale FXML control de inventario;
     @FXML TableView<Producto> tableInventario;
@@ -281,12 +283,12 @@ public class MenuStageController implements Initializable {
         clientesFisicoList =  FXCollections.observableArrayList();
         ClienteFisico.llenarTabla(conexion.getConnection(), clientesFisicoList);
         tableClienteF.setItems(clientesFisicoList);
-        columnIdClienteF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("noCliente"));
-        columnNombreF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,String>("nombre"));
-        columnRemisasF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("remisas"));
-        columnPedidosF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("pedidos"));
-        columnCorreoF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,String>("correo"));
-        columnPagadasF.setCellValueFactory(new PropertyValueFactory<ClienteFisico,Integer>("rPagadas"));
+        columnIdClienteF.setCellValueFactory(new PropertyValueFactory<>("noCliente"));
+        columnNombreF.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columnRemisasF.setCellValueFactory(new PropertyValueFactory<>("remisas"));
+        columnPedidosF.setCellValueFactory(new PropertyValueFactory<>("pedidos"));
+        columnCorreoF.setCellValueFactory(new PropertyValueFactory<>("correo"));
+        columnPagadasF.setCellValueFactory(new PropertyValueFactory<>("rPagadas"));
         conexion.closeConnection();
         
         //TableView Cliente moral
@@ -314,6 +316,24 @@ public class MenuStageController implements Initializable {
         columnCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidadPorCaja"));
         columnExistencias.setCellValueFactory(new PropertyValueFactory<>("stock"));
         conexion.closeConnection();
+        
+        //TableView Pedidos
+        /*
+        @FXML TableColumn<Pedido,Integer> columnIdPedido;
+    @FXML TableColumn<Pedido,String> columnTipoPedido;
+    @FXML TableColumn<Pedido,String> columnCliente;
+    @FXML TableColumn<Pedido,Date> columnFecha;
+    @FXML TableColumn<Pedido,Integer> columnMonto;
+        */
+        conexion.startConnection();
+        pedidoList = FXCollections.observableArrayList();
+        Pedido.llenarTabla(conexion.getConnection(), pedidoList);
+        tablePedido.setItems(pedidoList);
+        columnIdPedido.setCellValueFactory(new PropertyValueFactory<>("idPedido"));
+        columnFecha.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+        columnTipoPedido.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        columnCliente.setCellValueFactory(new PropertyValueFactory<>("nombreComprador"));
+        columnMonto.setCellValueFactory(new PropertyValueFactory<>("monto"));
     }    
     
 }
