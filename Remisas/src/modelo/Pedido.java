@@ -23,7 +23,7 @@ public class Pedido {
     private  Date fechaCreacion;
     private StringProperty nombreComprador,puesto,tipo;
     
-    private Pedido(int idPedido, int fk_cliente, Date fechaCreacion, String nombreComprador, String puesto,double monto){
+    public Pedido(int idPedido, int fk_cliente, Date fechaCreacion, String nombreComprador, String puesto,double monto){
         this.idPedido = new SimpleIntegerProperty(idPedido);
         this.fk_cliente = new SimpleIntegerProperty(fk_cliente);
         this.fechaCreacion = fechaCreacion;

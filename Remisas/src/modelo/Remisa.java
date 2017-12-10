@@ -18,84 +18,34 @@ import javafx.scene.control.Alert;
  *
  * @author Abril
  */
-public class Remisa {
+public class Remisa extends Pedido {
     
-    private IntegerProperty idPedido,fk_cliente;
-    private  Date fechaCreacion, fechaRegistro,fechaLimite;
-    private DoubleProperty montoTotal,monto;
-    private StringProperty nombreComprador,puesto;
+    private  Date fechaRegistro,fechaLimite;
+    private DoubleProperty montoDeuda;
+    private StringProperty nombre;
     
-     private Remisa(int idPedido,int fk_cliente, Date fechaCreacion,Date fechaRegistro, Date fechaLimite, Double montoTotal, Double monto,String nombreComprador,String puesto){
-        this.idPedido = new SimpleIntegerProperty(idPedido);
-        this.fk_cliente = new SimpleIntegerProperty(fk_cliente);
-        this.fechaCreacion = fechaCreacion;
+     private Remisa(int idPedido,String nombre,int fk_cliente, Date fechaCreacion,Date fechaRegistro, Date fechaLimite, Double monto, Double montoDeuda,String nombreComprador,String puesto){
+        super(idPedido,fk_cliente,fechaCreacion,nombreComprador,puesto,monto);
         this.fechaRegistro = fechaRegistro;
         this.fechaLimite= fechaLimite;
-        this.monto=new SimpleDoubleProperty(monto);
-        this.montoTotal=new SimpleDoubleProperty(montoTotal);
-         this.nombreComprador=new SimpleStringProperty(nombreComprador);
-        this.puesto=new SimpleStringProperty(puesto);
-        
+        this.montoDeuda=new SimpleDoubleProperty(montoDeuda);
+        this.nombre = new SimpleStringProperty(nombre);
+        super.setTipo("Remisa");
         
     }
-    private Remisa(Remisa remisa){
-        this.idPedido = new SimpleIntegerProperty(remisa.getIdPedido());
-        this.fk_cliente = new SimpleIntegerProperty(remisa.getFk_cliente());
-        this.monto=new SimpleDoubleProperty(remisa.getMonto());
-        this.montoTotal=new SimpleDoubleProperty(remisa.getMontoTotal());
-        this.nombreComprador=new SimpleStringProperty(remisa.getNombreComprador());
-        this.puesto=new SimpleStringProperty(remisa.getPuesto());
+    
+    public String getNombre(){
+        return nombre.get();
     }
     
-    public String getNombreComprador(){
-        return nombreComprador.get();
+    public void setNombre(String nombre){
+        this.nombre = new SimpleStringProperty(nombre);
     }
     
-    public void setNombreComprador(String nombreComprador){
-        this.nombreComprador = new SimpleStringProperty(nombreComprador); 
-    }
-    public Property nombreCompradorProperty(){
-        return nombreComprador;
-    }
-     public String getPuesto(){
-        return puesto.get();
+    public Property nombreProperty(){
+        return nombre;
     }
     
-    public void setPuesto(String puesto){
-        this.puesto = new SimpleStringProperty(puesto); 
-    }
-    public Property puestoProperty(){
-        return puesto;
-    }
-     public int getIdPedido(){
-        return idPedido.get();
-    }
-    
-    public void setIdPedido(int idPedido){
-        this.idPedido = new SimpleIntegerProperty(idPedido); 
-    }
-    public Property idPedidoProperty(){
-        return idPedido;
-    }
-    
-    public int getFk_cliente(){
-        return fk_cliente.get();
-    }
-    
-    public void setFk_cliente(int fk_cliente){
-        this.fk_cliente = new SimpleIntegerProperty(fk_cliente); 
-    }
-    public Property fk_clienteProperty(){
-        return fk_cliente;
-    }
-    
-    public Date getFechaCreacion(){
-        return fechaCreacion;
-    }
-    
-    public void setFechaCreacion(Date fechaCreacion){
-        this.fechaCreacion = fechaCreacion; 
-    }
      public Date getFechaRegistro(){
         return fechaRegistro;
     }
@@ -111,25 +61,34 @@ public class Remisa {
         this.fechaLimite = fechaLimite; 
     }
     
-    public Double getMonto(){
-        return monto.get();
+    public Double getMontoDeuda(){
+        return montoDeuda.get();
     }
     
-    public void setMonto(Double monto){
-        this.monto = new SimpleDoubleProperty(monto); 
+    public void setMontoDeuda(Double montoDeuda){
+        this.montoDeuda = new SimpleDoubleProperty(montoDeuda); 
     }
-    public Property montoProperty(){
-        return monto;
-    }
-    
-    public Double getMontoTotal(){
-        return montoTotal.get();
+    public Property montoDeudaProperty(){
+        return montoDeuda;
     }
     
-    public void setMontoTotal(Double montoTotal){
-        this.montoTotal = new SimpleDoubleProperty(montoTotal); 
-    }
-    public Property montoTotalProperty(){
-        return montoTotal;
+    public static void llenarTabla(Connection connection,ObservableList<Pedido> list){
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("select idPedido,nombre,fk_cliente,"
+                    + "fechaCreacion,fechaRegistro,fechaLimite,sum(subtotal) as montoTotal,monto,nombreComprador,puesto "
+                    + "from listaremisas group by idPedido");
+            while(result.next())
+                list.add(new Remisa(result.getInt("idPedido"),result.getString("nombre"),result.getInt("fk_cliente"),
+                            result.getDate("fechaCreacion"),result.getDate("fechaRegistro"),result.getDate("fechaLimite"),
+                            result.getDouble("montoTotal"),result.getDouble("monto"),result.getString("nombreComprador"),
+                            result.getString("puesto")));
+        } catch (SQLException ex) {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setTitle("Error al generar el statement");
+            a.setHeaderText("Ocurrio un error al intentar generar el statement de la base de datos");
+            a.setContentText(ex.getMessage());
+            a.showAndWait();
+        }
     }
 }

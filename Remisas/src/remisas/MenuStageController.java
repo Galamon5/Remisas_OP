@@ -328,6 +328,7 @@ public class MenuStageController implements Initializable {
         conexion.startConnection();
         pedidoList = FXCollections.observableArrayList();
         Pedido.llenarTabla(conexion.getConnection(), pedidoList);
+        Remisa.llenarTabla(conexion.getConnection(), pedidoList);
         tablePedido.setItems(pedidoList);
         columnIdPedido.setCellValueFactory(new PropertyValueFactory<>("idPedido"));
         columnFecha.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
